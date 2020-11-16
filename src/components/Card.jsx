@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Card = ({ question, answer }) => {
+const Card = ({ question, answer, number }) => {
   return (
     <div className='Card'>
-      <p>Question: {question}</p>
-      <p>Answer: {answer}</p>
+      <p>{number + 1}.</p>
+      <p><strong>Question:</strong> {question}</p>
+      <p><strong>Answer:</strong> {answer}</p>
     </div>
   )
 }

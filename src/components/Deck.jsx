@@ -4,10 +4,11 @@ import Card from './Card'
 const Deck = ({ name, cards }) => {
   return (
     <div className="Deck">
-      <p>Name: {name}</p>
+      <p><strong>DECK:</strong> {name}</p>
+      <p>Cards in Deck: {cards.length}</p>
       <ul>
-        {cards.map(card => {
-          return <Card key={card.id} question={card.question} answer={card.answer} />
+        {cards.map((card, index) => {
+          return <Card key={card.id} number={index} question={card.question} answer={card.answer} />
         })}
       </ul>
     </div>
