@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Card extends Component {
-
-  render() {
-    return (
-      <div className="Card">
-        Card
-      </div>
-    )
-  }
+const Card = ({ question, answer }) => {
+  return (
+    <div className='Card'>
+      <p>Question: {question}</p>
+      <p>Answer: {answer}</p>
+    </div>
+  )
 }
 
 export default Card
