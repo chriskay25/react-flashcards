@@ -28,14 +28,14 @@ html {
   padding: 1rem 0;
 }
 
-.Deck {
+.Deck-display {
   display: block;
   border: solid white 4px;
   font-size: 1.5rem;
   padding: 1rem;
 }
 
-.Card {
+.Card-display {
   display: flex;
   border: solid black 6px;
   background: lightslategray;

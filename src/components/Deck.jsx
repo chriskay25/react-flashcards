@@ -3,8 +3,8 @@ import Card from './Card'
 
 const Deck = ({ name, cards }) => {
   return (
-    <div className="Deck">
-      <p><strong>DECK:</strong> {name}</p>
+    <div className="Deck-display">
+      <p className='deck-name'><strong>DECK:</strong> {name}</p>
       <p>Cards in Deck: {cards.length}</p>
       <ul>
         {cards.map((card, index) => {
