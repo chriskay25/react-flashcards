@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Answer = () => {
-  <div className='Answer'>
-    Answer
-  </div>
+const Answer = ({ answer }) => {
+  return (
+    <div className='Answer'>
+      {answer}
+    </div>
+  )
 }
 
 export default Answer
