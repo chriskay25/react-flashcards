@@ -1,11 +1,13 @@
 import React from 'react';
+import Question from './Question'
+import Answer from './Answer'
 
 const Card = ({ question, answer, number }) => {
   return (
     <div className='Card-display'>
       <p><strong>{number + 1}.</strong></p>
-      <p><strong>Question:</strong> {question}</p>
-      <p><strong>Answer:</strong> {answer}</p>
+      <Question question={question} />
+      <Answer answer={answer} />
     </div>
   )
 }
