@@ -8,7 +8,7 @@ html {
 
 .App {
   display: block;
-  /* max-height: 100vh; */
+  min-height: 100vh;
   /* overflow: hidden; */
   background: #00ffbf;
 }
@@ -59,11 +59,37 @@ html {
   margin: 0;
 } 
 
+.Homepage {
+  height: 100%;
+}
+
 p {
   margin: .5rem;
 }
 
 ul {
   padding: 0;
+}
+
+.StyledButton {
+  border: solid black .3rem;
+  padding: .5rem;
+  background-image: radial-gradient(white, blue);
+  background-size: 110%;
+  color: black;
+  font-weight: bold;
+  box-shadow: black 0 0 .8rem;
+}
+
+.StyledButton:hover {
+  box-shadow: black 0 0 1.2rem;
+  
+}
+
+.StyledButton:active {
+  box-shadow: darkblue 0 0 .5rem;
+  background-image: radial-gradient(black, blue);
+  color: white;
+  padding: .4rem;
 }
 
