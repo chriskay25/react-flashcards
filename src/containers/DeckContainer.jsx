@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import Deck from '../components/Deck'
+import DeckSelect from '../components/DeckSelect'
 
 class DeckContainer extends Component {
   state = {
+    singleDeck: null,
     decks: []
   }
 
@@ -26,9 +28,11 @@ class DeckContainer extends Component {
 
   render() {
     console.log(this.state)
+    const { decks } = this.state
     return (
       <div className="DeckContainer">
-        {this.displayDecks()}
+        <DeckSelect decks={decks} />
+        {/* {this.displayDecks()} */}
       </div>
     )
   }
