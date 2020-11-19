@@ -7,7 +7,7 @@ import DeckContainer from '../containers/DeckContainer'
 const Home = () => {
   return (
     <div className='Homepage'>
-      Welcome! Choose a deck to study.
+      <h2>Welcome! Choose a deck to study.</h2>
       <DeckContainer />
     </div>
   )
