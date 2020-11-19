@@ -18,6 +18,14 @@ class DeckContainer extends Component {
       }));
   }
 
+  fetchDeck = (id) => {
+    fetch(`http://localhost:3000/api/v1/collections/` + id)
+      .then(resp => resp.json())
+      .then(deck => this.setState({
+        singleDeck: deck.data
+      }))
+  }
+
   displayDecks = () => {
     return (
       this.state.decks.map(deck => {
@@ -28,12 +36,15 @@ class DeckContainer extends Component {
 
   render() {
     console.log(this.state)
-    const { decks } = this.state
-    return (
+    const { decks, singleDeck } = this.state
+    const chosenDeck = singleDeck ? <Deck name={singleDeck.name} cards={singleDeck.attributes.cards} /> : (
       <div className="DeckContainer">
-        <DeckSelect decks={decks} />
+        <DeckSelect decks={decks} fetchDeck={this.fetchDeck}/>
         {/* {this.displayDecks()} */}
       </div>
+    )
+    return (
+      chosenDeck
     )
   }
 

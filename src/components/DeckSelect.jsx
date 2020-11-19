@@ -6,8 +6,7 @@ export default function DeckSelect(props) {
   const [deck, setDeck] = useState(null);
 
   const handleChange = (event) => {
-    setDeck(event.target.value);
-    console.log("deck is equal to: ", event.target.value)
+    props.fetchDeck(event.target.value);
   };
 
   const deckOptions = () => {
