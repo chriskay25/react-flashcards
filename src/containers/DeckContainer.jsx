@@ -1,29 +1,12 @@
 import React, { Component } from 'react'
 import Deck from '../components/Deck'
 import DeckSelect from '../components/DeckSelect'
+import { getDeck } from '../actions/decks'
 
 class DeckContainer extends Component {
   state = {
     singleDeck: null,
     decks: []
-  }
-
-  fetchDecks = () => {
-    fetch('http://localhost:3000/api/v1/collections')
-      .then(resp => resp.json())
-      .then(decks => decks.data.forEach(deck => {
-        this.setState({
-          decks: this.state.decks.concat(deck)
-        })
-      }));
-  }
-
-  fetchDeck = (id) => {
-    fetch(`http://localhost:3000/api/v1/collections/` + id)
-      .then(resp => resp.json())
-      .then(deck => this.setState({
-        singleDeck: deck.data
-      }))
   }
 
   displayDecks = () => {
@@ -48,8 +31,8 @@ class DeckContainer extends Component {
     )
   }
 
-  componentDidMount() {
-    this.fetchDecks()
+  const mapStateToProps = (state) => {
+    
   }
 }
 
