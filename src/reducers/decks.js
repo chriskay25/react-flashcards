@@ -1,4 +1,4 @@
-export function getDeck(state = null, action) {
+export const deckReducer = (state = {decks: [], deck: null}, action) => {
   switch (action.type) {
     case 'GET_DECK':
       return {
@@ -8,7 +8,7 @@ export function getDeck(state = null, action) {
     case 'GET_DECKS':
       return {
         ...state,
-        decks: action.payload
+        decks: [...state.decks.concat(action.payload)]
       };
     default:
       return state;
