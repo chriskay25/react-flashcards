@@ -1,29 +1,25 @@
 import React, { Component } from 'react'
 import Deck from '../components/Deck'
 import DeckSelect from '../components/DeckSelect'
-import { getDeck } from '../actions/decks'
+import { getDecks } from '../actions/decks'
+import { connect } from 'react-redux'
 
 class DeckContainer extends Component {
-  state = {
-    singleDeck: null,
-    decks: []
-  }
 
   displayDecks = () => {
     return (
-      this.state.decks.map(deck => {
+      this.props.decks.map(deck => {
         return <Deck key={deck.id} name={deck.attributes.name} cards={deck.attributes.cards} />
       })
     )
   }
 
   render() {
-    console.log(this.state)
-    const { decks, singleDeck } = this.state
-    const chosenDeck = singleDeck ? <Deck name={singleDeck.name} cards={singleDeck.attributes.cards} /> : (
+    console.log("Apropos: ", this.props)
+    const { decks, deck } = this.props
+    const chosenDeck = deck ? <Deck name={deck.name} cards={deck.attributes.cards} /> : (
       <div className="DeckContainer">
-        <DeckSelect decks={decks} fetchDeck={this.fetchDeck}/>
-        {/* {this.displayDecks()} */}
+        <DeckSelect decks={decks} />
       </div>
     )
     return (
@@ -31,9 +27,17 @@ class DeckContainer extends Component {
     )
   }
 
-  const mapStateToProps = (state) => {
-    
+  componentDidMount() {
+    this.props.getDecks()
   }
 }
 
-export default DeckContainer
+const mapState = (state) => ({
+  deck: state.deckReducer.deck,
+  decks: state.deckReducer.decks
+})
+
+export default connect(
+  mapState,
+  { getDecks }
+)(DeckContainer)
