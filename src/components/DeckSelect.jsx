@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
-import Button from '@material-ui/core/Button'
-import StyledButton from './StyledButton'
+import React from 'react';
+// import StyledButton from './StyledButton'
 
-export default function DeckSelect(props) {
-  const [deck, setDeck] = useState(null);
+const DeckSelect = (props) => {
 
   const handleChange = (event) => {
-    props.fetchDeck(event.target.value);
+    props.displayDeck(event.target.value);
   };
 
   const deckOptions = () => {
     return props.decks.map(deck => {
-      return <option value={deck.id}>{deck.attributes.name}</option>
+      return <option key={deck.id} value={deck.id}>{deck.attributes.name}</option>
     })
   }
 
   return (
-    <select onChange={handleChange} value={deck}>
-      {!deck && (
-        <option>Choose a Deck</option>
-      )}
+    <select onChange={handleChange}>
+      <option>Choose a Deck</option>
       {deckOptions()}
     </select>
   )
-  
 }
+
+export default DeckSelect
