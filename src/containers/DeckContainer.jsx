@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Deck from '../components/Deck'
 import DeckSelect from '../components/DeckSelect'
-import { getDecks } from '../actions/decks'
+import { getDeck, getDecks } from '../actions/decks'
 import { connect } from 'react-redux'
 
 class DeckContainer extends Component {
@@ -14,17 +14,20 @@ class DeckContainer extends Component {
     )
   }
 
+  singleDeck = (id) => {
+    console.log("Did it make it")
+    this.props.getDeck(id)
+  }
+
   render() {
-    console.log("Apropos: ", this.props)
-    const { decks, deck } = this.props
-    const chosenDeck = deck ? <Deck name={deck.name} cards={deck.attributes.cards} /> : (
-      <div className="DeckContainer">
-        <DeckSelect decks={decks} />
-      </div>
-    )
-    return (
-      chosenDeck
-    )
+    const { deck, decks } = this.props
+
+    if (deck) {
+      return (<Deck name={deck.attributes.name} cards={deck.attributes.cards} />)
+    }
+    else {
+      return (<DeckSelect decks={decks} singleDeck={this.singleDeck} />)
+    }
   }
 
   componentDidMount() {
@@ -39,5 +42,5 @@ const mapState = (state) => ({
 
 export default connect(
   mapState,
-  { getDecks }
+  { getDeck, getDecks }
 )(DeckContainer)
