@@ -4,7 +4,8 @@ import React from 'react';
 const DeckSelect = (props) => {
 
   const handleChange = (event) => {
-    props.displayDeck(event.target.value);
+    console.log("Inside handleChange", event.target.value)
+    props.singleDeck(event.target.value);
   };
 
   const deckOptions = () => {
