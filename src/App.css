@@ -46,6 +46,15 @@ html {
   font-size: 1rem;
   padding: .5rem 1rem;
   margin: .5rem;
+  align-items: center;
+}
+
+.Question {
+  padding: 1rem;
+}
+
+.Answer {
+  padding: 1rem;
 }
 
 .Scoreboard {
