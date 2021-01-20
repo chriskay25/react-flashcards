@@ -1,20 +1,35 @@
-import React from 'react';
-import Card from './Card'
+import React, { useState } from 'react';
+import CardContainer from '../containers/CardContainer'
+import { connect } from 'react-redux'
 
-const Deck = ({ name, cards }) => {
+const Deck = ({ deck }) => {
+  const [mode, setMode] = useState('')
+  console.log('deck: ', deck)
+
+  const handleClick = (e) => {
+    console.log(e)
+    setMode(e.target.innerHTML)
+  }
+
   return (
     <div className="Deck-display">
-      <p className='deck-name'><strong>DECK:</strong> {name}</p>
-      <p>Cards in Deck: {cards.length}</p>
-      <ul>
-        {cards.map((card, index) => {
-          return <Card key={card.id} number={index} question={card.question} answer={card.answer} />
-        })}
-      </ul>
+      <h1>{deck.attributes.name}</h1>
+      {!mode && <p className='mode-select'>
+        Mode: 
+        <button onClick={handleClick}>Study</button> 
+        <button onClick={handleClick}>Quiz</button>
+      </p>}
+      <p>Cards in Deck: {deck.attributes.cards.length}</p>
+
+      <CardContainer cards={deck.attributes.cards} mode={mode} />
     </div>
   )
 }
 
+const mapState = (state) => ({
+  deck: state.deckReducer.deck,
+})
 
-
-export default Deck
+export default connect(
+  mapState
+)(Deck)
