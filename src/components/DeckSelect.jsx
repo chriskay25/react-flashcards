@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 
 const DeckSelect = (props) => {
-  const [deck, setDeck] = useState('')
+  const [id, setId] = useState('')
 
   const handleChange = (event) => {
-    setDeck(event.target.value)
+    setId(event.target.value)
     props.selectedDeck(event.target.value);
   };
 
@@ -21,7 +21,7 @@ const DeckSelect = (props) => {
         <option>Choose a Deck</option>
         {deckOptions()}
       </select>
-      <Link to={'/deck/' + deck} className='go-to-deck'>Go!</Link>
+      <Link to={'/deck/' + id} className='go-to-deck'>Go!</Link>
     </div>
   )
 }
