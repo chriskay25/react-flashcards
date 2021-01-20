@@ -1,11 +1,12 @@
-import React from 'react';
-// import StyledButton from './StyledButton'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 const DeckSelect = (props) => {
+  const [deck, setDeck] = useState('')
 
   const handleChange = (event) => {
-    console.log("Inside handleChange", event.target.value)
-    props.singleDeck(event.target.value);
+    setDeck(event.target.value)
+    props.selectedDeck(event.target.value);
   };
 
   const deckOptions = () => {
@@ -15,10 +16,13 @@ const DeckSelect = (props) => {
   }
 
   return (
-    <select onChange={handleChange}>
-      <option>Choose a Deck</option>
-      {deckOptions()}
-    </select>
+    <div>
+      <select onChange={handleChange}>
+        <option>Choose a Deck</option>
+        {deckOptions()}
+      </select>
+      <Link to={'/deck/' + deck} className='go-to-deck'>Go!</Link>
+    </div>
   )
 }
 
