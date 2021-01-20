@@ -1,16 +1,34 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Button from '@material-ui/core/Button'
+import React, { Component } from 'react'
 import DeckSelect from './DeckSelect'
-import DeckContainer from '../containers/DeckContainer'
+import { getDeck, getDecks } from '../actions/deckActions'
+import { connect } from 'react-redux'
 
-const Home = () => {
-  return (
-    <div className='Homepage'>
-      <h2>Welcome! Choose a deck to study.</h2>
-      <DeckContainer />
-    </div>
-  )
+class Home extends Component {
+
+  selectedDeck = (id) => {
+    this.props.getDeck(id)
+  }
+
+  render() {
+    return (
+      <div className='Homepage'>
+        <h2>Welcome! What would you like to study?</h2>
+        <DeckSelect decks={this.props.decks} selectedDeck={this.selectedDeck} />
+      </div>
+    )
+  }
+
+  componentDidMount() {
+    this.props.getDecks()
+  }
 }
 
-export default Home
+const mapState = (state) => ({
+  deck: state.deckReducer.deck,
+  decks: state.deckReducer.decks
+})
+
+export default connect(
+  mapState,
+  { getDeck, getDecks }
+)(Home)
