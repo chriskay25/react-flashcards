@@ -8,7 +8,7 @@ export const deckReducer = (state = {decks: [], deck: null}, action) => {
     case 'GET_DECKS':
       return {
         ...state,
-        decks: [...state.decks.concat(action.payload)]
+        decks: [...action.payload]
       };
     default:
       return state;
