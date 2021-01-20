@@ -1,28 +1,13 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Card from '../components/Card'
-import { getCard } from '../actions/cardActions'
-import { connect } from 'react-redux'
 
-class CardContainer extends Component {
+const CardContainer = ({ cards }) => {
 
-  singleCard = (id) => {
-    this.props.getCard(id)
-  }
-
-  render() {
-    const { card } = this.props
-    console.log("In CardContainer, card = ", card)
-    return (
-      <Card />
-    )
-  }
+  return(
+    <div className='card-container'>
+      Cards
+    </div>
+  )
 }
 
-const mapState = (state) => ({
-  card: state.cardReducer.card
-})
-
-export default connect(
-  mapState,
-  { getCard }
-)(CardContainer)
+export default CardContainer
