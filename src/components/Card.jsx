@@ -1,15 +1,15 @@
 import React from 'react';
 import Question from './Question'
 import Answer from './Answer'
-import { motion } from 'framer-motion'
+import StyledCard from '../styledComponents/StyledCard'
 
-const Card = ({ question, answer, number }) => {
+const Card = ({ question, answer, index, mode }) => {
   return (
-    <motion.div className='Card-display' animate={{ scale: .95 }} transition={{ duration: 1 }}>
-      <p><strong>{number + 1}.</strong></p>
+    <StyledCard>
+      <p className='question-number'><strong>{index + 1}.</strong></p>
       <Question question={question} />
       <Answer answer={answer} />
-    </motion.div>
+    </StyledCard>
   )
 }
 
