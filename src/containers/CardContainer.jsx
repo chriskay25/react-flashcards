@@ -13,7 +13,7 @@ const CardContainer = ({ cards, mode }) => {
 
   const quizMode = () => {
     const quizCard = cards[index]
-    return <Card key={quizCard} question={quizCard.question} answer={quizCard.answer} mode={mode} index={index} />
+    return <Card key={quizCard} question={quizCard.question} answer={quizCard.answer} mode={mode} index={index} next={next} back={back} />
   }
 
   const next = () => {
@@ -36,8 +36,6 @@ const CardContainer = ({ cards, mode }) => {
       </div>
       <div className='quiz-card-container'>
         {mode === 'Quiz' && quizMode()}
-        <button className='back-button' onClick={back}>Back</button>
-        <button className='next-button' onClick={next}>Next</button>
       </div>
     </div>
   )
