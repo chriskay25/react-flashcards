@@ -3,12 +3,13 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 14px;
 }
 
-@keyframes styled-button {
-  0% {background-size: 115%; background-color: yellow;}
-  100% {background-size: 130%; background-color: red;}
+@media screen and (max-width: 700px) {
+  html {
+    font-size: 8px;
+  }
 }
 
 .App {
@@ -32,14 +33,14 @@ html {
   padding: 1rem 0;
 }
 
-.Deck-display {
+.deck-display {
   display: block;
   border: solid white 4px;
   font-size: 1.5rem;
   padding: 1rem;
 }
 
-.Card-display {
+.card-display {
   display: flex;
   border: solid black 6px;
   background: lightslategray;
@@ -89,9 +90,11 @@ select {
   margin: 1rem;
   padding: .2rem;
   border: solid black .2rem;
-  font-size: 1rem;
+  border-radius: .4rem;
+  font-size: 1.1rem;
   color: white;
   background: black;
+  height: 2.5rem;
 }
 
 .StyledButton {
@@ -116,4 +119,47 @@ select {
   color: white;
   padding: .4rem;
 }
+
+.link {
+  color: white;
+  text-decoration: none;
+  padding: .5rem;
+  margin: .5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav-links {
+  padding: 1rem;
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
+
+.go-to-deck {
+  border: solid black .1rem;
+  padding: .5rem;
+  background-image: radial-gradient(rgb(185, 203, 240), darkgray);
+  background-size: 110%;
+  color: black;
+  font-weight: bold;
+  border-radius: .4rem;
+  /* box-shadow: black 0 0 .3rem; */
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.study-card-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.quiz-card-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
 
