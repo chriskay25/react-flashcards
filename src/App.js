@@ -2,19 +2,23 @@ import './App.css';
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Deck from './components/Deck'
-import { Route, Switch } from 'react-router-dom'
+import Decks from './components/Decks'
+import { Route, Switch, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 
 
 function App() {
+  const location = useLocation()
   return (
     <div className="App">
       <NavBar />
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/deck/:id' component={Deck} />
-        <Route exact path='/deck' component={Deck} />
-      </Switch>
-        
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          <Route exact path='/decks/:id' component={Deck} />
+          <Route exact path='/decks' component={Decks} />
+          <Route exact path='/' component={Home} />
+        </Switch>
+      </AnimatePresence>
     </div>
   );
 }
