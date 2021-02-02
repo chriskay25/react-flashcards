@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import HomeDeckButton from './HomeDeckButton'
 import { Link } from 'react-router-dom'
@@ -7,9 +7,9 @@ const homepageVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
   exit: {
-    x: '-100vw',
+    opacity: 0,
     transition: {
-      duration: 1,
+      duration: .5,
       when: 'afterChildren'
     }
   }
@@ -21,15 +21,13 @@ const questionVariants = {
     opacity: 0,
     fontSize: '2.3rem',
     fontWeight: 'bold',
-    textDecoration: 'none',
     marginTop: '3rem'
   },
   visible: { 
     x: '3rem', 
     opacity: 1,
-    textDecoration: 'underline',
     marginBottom: '50px',
-    transition: { delay: 4, type: 'spring' }
+    transition: { type: 'spring' }
   },
   exit: { x: '-100vw' }
 }
