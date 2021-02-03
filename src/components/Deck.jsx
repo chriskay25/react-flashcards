@@ -43,8 +43,8 @@ class Deck extends Component {
     return (
       <div className="deck-display">
         {deck && <div className='deck-title'>
-          <h2>{deck.attributes.name}</h2>
-          <p>- {deck.attributes.cards.length} Cards</p>
+          <h2>{deck.name}</h2>
+          <p>- {deck.cards.length} Cards</p>
           
         </div>}
 
@@ -53,7 +53,7 @@ class Deck extends Component {
           <motion.button onClick={this.handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover'>Quiz</motion.button> 
         </span>}
 
-        {mode && <CardContainer cards={deck.attributes.cards} mode={mode} />}
+        {mode && <CardContainer cards={deck.cards} mode={mode} />}
       </div>
     )
   }
