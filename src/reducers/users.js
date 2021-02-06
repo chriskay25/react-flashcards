@@ -10,6 +10,11 @@ export const userReducer = (state = {currentUser: null}, action) => {
                 ...state,
                 currentUser: action.payload
             }
+        case 'SIGNUP':
+            return {
+                ...state,
+                currentUser: action.payload
+            }
         case 'LOGOUT':
             return {
                 ...state,
