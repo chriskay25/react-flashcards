@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import CardContainer from '../containers/CardContainer'
-import { getDeck } from '../actions/deckActions'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 
 const buttonVariants = {
@@ -22,24 +21,15 @@ const buttonVariants = {
   }
 }
 
-class Deck extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      mode: '',
-    }
-  }
+const Deck = () => {
+    const [mode, setMode] = useState(null)
+    const deck = useSelector(state => state.deckReducer.deck)
 
-  handleClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault()
-    this.setState({
-      mode: e.target.innerHTML
-    })
+    setMode(e.target.innerHTML)
   }
 
-  render() {
-    const { mode } = this.state
-    const { deck } = this.props
     return (
       <div className="deck-display">
         {deck && <div className='deck-title'>
@@ -49,24 +39,15 @@ class Deck extends Component {
         </div>}
 
         {!mode && <span className='mode-select'>
-          <motion.button onClick={this.handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover' whileTap='whileTap'>Study</motion.button> 
-          <motion.button onClick={this.handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover'>Quiz</motion.button> 
+          <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover' whileTap='whileTap'>Study</motion.button> 
+          <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover'>Quiz</motion.button> 
         </span>}
 
         {mode && <CardContainer cards={deck.cards} mode={mode} />}
       </div>
     )
-  }
-  componentDidMount() {
-    const id = this.props.match.params.id
-    this.props.getDeck(id)
-  }
 }
 
-const mapState = (state) => ({
-  deck: state.deckReducer.deck
-})
 
-export default connect(
-  mapState, { getDeck }
-)(Deck)
+
+export default Deck
