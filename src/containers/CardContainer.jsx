@@ -7,13 +7,30 @@ const CardContainer = ({ cards, mode }) => {
 
   const studyMode = () => {
     return cards.map((card, idx) => {
-      return <Card key={card.id} question={card.question} answer={card.answer} mode={mode} index={idx} />
+      return (
+        <Card
+          key={card.id} 
+          question={card.question} 
+          answer={card.answer} 
+          mode={mode} 
+          index={idx} 
+        />
+      ) 
     })
   }
 
   const quizMode = () => {
     const quizCard = cards[index]
-    return <Card key={quizCard} question={quizCard.question} answer={quizCard.answer} mode={mode} index={index} next={next} back={back} />
+    return (
+      <Card 
+        key={quizCard} 
+        question={quizCard.question} 
+        answer={quizCard.answer} 
+        mode={mode} 
+        index={index} 
+        next={next} 
+        back={back} />
+    )
   }
 
   const next = () => {
@@ -30,11 +47,8 @@ const CardContainer = ({ cards, mode }) => {
 
   return(
     <div className='card-container'>
-      {/* Mode: {mode} */}
-      <div className='study-card-container'>
+      <div className='inner-card-container'>
         {mode === 'Study' && studyMode()}
-      </div>
-      <div className='quiz-card-container'>
         {mode === 'Quiz' && quizMode()}
       </div>
     </div>
