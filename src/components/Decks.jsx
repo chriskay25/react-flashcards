@@ -1,20 +1,22 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import DeckOption from './DeckOption'
 import { getDecks } from '../actions/deckActions'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 const containerVariants = {
     hidden: {
-        opacity: 0,
-        scale: 0
+        scaleY: 0,
+        borderTop: 'solid .2rem lightcoral', 
+        borderBottom: 'solid .2rem lightcoral', 
     },
     visible: {
-        opacity: 1,
-        scale: 1,
+        scaleY: 1,
+        borderTop: 'solid 1rem lightcoral', 
+        borderBottom: 'solid 1rem lightcoral', 
         transition: {
-            when: 'beforeChildren',
-            staggerChildren: .3
+            duration: 1,
         }
     },
     exit: {
@@ -25,37 +27,34 @@ const containerVariants = {
     }
 }
 
-class Decks extends Component {
+const Decks = () => {
+    const decks = useSelector(state => state.deckReducer.decks)
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        dispatch(getDecks())
+        console.log('useEffect getDecks')
+    }, [dispatch])
 
-    componentDidMount() {
-        this.props.getDecks()
-    }
-
-    populate = () => {
-        return this.props.decks.map((deck, idx) => {
-            return <DeckOption key={deck.id} deckId={deck.id} index={idx + 1} deckName={deck.attributes.name} />
+    const populate = () => {
+        return decks.map((deck, idx) => {
+            return <DeckOption key={deck.id} deckId={deck.id} index={idx + 1} deckName={deck.name} />
         })
     }
 
-    render() {
-        return (
+    return (
+        <>
+            <h1 className='decks-header'>Decks</h1>
             <motion.div className='decks-motion'
                 variants={containerVariants} 
                 initial='hidden' 
                 animate='visible'
                 exit='exit'
             >
-                {this.populate()}
+                {populate()}
             </motion.div>
-        )
-    }
+        </>
+    )
 }
-
-const mapState = (state) => ({
-    decks: state.deckReducer.decks
-})
   
-  export default connect(
-    mapState,
-    { getDecks }
-  )(Decks)
+export default Decks
