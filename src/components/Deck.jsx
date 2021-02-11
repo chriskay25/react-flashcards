@@ -1,7 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardContainer from '../containers/CardContainer'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { getDeck } from '../actions/deckActions'
 
 const buttonVariants = {
   hidden: {
@@ -22,8 +24,14 @@ const buttonVariants = {
 }
 
 const Deck = () => {
-    const [mode, setMode] = useState(null)
-    const deck = useSelector(state => state.deckReducer.deck)
+  const [mode, setMode] = useState(null)
+  const deck = useSelector(state => state.deckReducer.deck)
+  const params = useParams()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getDeck(params.id))
+  }, [dispatch, params.id])
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -39,6 +47,7 @@ const Deck = () => {
         </div>}
 
         {!mode && <span className='mode-select'>
+          <h2>Mode:</h2>
           <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover' whileTap='whileTap'>Study</motion.button> 
           <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover'>Quiz</motion.button> 
         </span>}
@@ -47,7 +56,5 @@ const Deck = () => {
       </div>
     )
 }
-
-
 
 export default Deck
