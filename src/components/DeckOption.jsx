@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useLocation } from 'react-router-dom'
 
 const DeckOption = ({ deckId, deckName, index }) => {
     const optionVariants = {
         hidden: {
+            marginTop: '.8rem',
+            width: '40%',
             scaleX: 0,
-            y: '10vh',
         },
         visible: {
+            padding: '1rem',
             scaleX: 1,
-            y: 0,
+            backgroundColor: 'var(--blue)',
+            color: 'var(--darker)',
             transition: {
                 type: 'spring',
                 damping: 15,
@@ -18,32 +21,33 @@ const DeckOption = ({ deckId, deckName, index }) => {
             }
         },
         hover: {
-            scale: .9,
-            boxShadow: '0px 0px 10px #000',
+            originX: 0,
+            width: '80%',
+            color: 'var(--light)',
+            // boxShadow: '0px 0px 10px #000',
             transition: {
                 type: 'spring',
-                bounce: .3
+                stiffness: 200,
             }
         },
         exit: { x: '-100vw' }
     }
 
     const [redirected, setRedirected] = useState(false)
-    const handleClick = () => {
-        setRedirected(!redirected)
-    }
+    const location = useLocation()
+    const locationState = JSON.stringify({ from: location })
 
     return (
         <motion.div className='deck-option' 
             initial='hidden' 
             animate='visible' 
             whileHover='hover' 
-            exit={{ x: '-100vw' }}
+            exit='exit'
             variants={optionVariants}
-            onClick={handleClick}
+            onClick={ () => setRedirected(!redirected) }
         >
-            {redirected && <Redirect to={`/decks/${deckId}`} />}
-            <h2 style={{color: '#000'}} className='deck-option-name'>{deckName}</h2>
+            {redirected && <Redirect to={{ pathname: `/decks/${deckId}`, state: locationState }} />}
+            <motion.h2 className='deck-option-name'>{deckName}</motion.h2>
         </motion.div>
     )
 }
