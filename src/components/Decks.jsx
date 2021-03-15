@@ -4,29 +4,6 @@ import DeckOption from './DeckOption'
 import { getDecks } from '../actions/deckActions'
 import { useSelector, useDispatch } from 'react-redux'
 
-
-const containerVariants = {
-    hidden: {
-        scaleY: 0,
-        borderTop: 'solid .2rem lightcoral', 
-        borderBottom: 'solid .2rem lightcoral', 
-    },
-    visible: {
-        scaleY: 1,
-        borderTop: 'solid 1rem lightcoral', 
-        borderBottom: 'solid 1rem lightcoral', 
-        transition: {
-            duration: 1,
-        }
-    },
-    exit: {
-        transition: {
-            x: '-100vw',
-            when: 'afterChildren',
-        }
-    }
-}
-
 const Decks = () => {
     const decks = useSelector(state => state.deckReducer.decks)
     const dispatch = useDispatch()
@@ -43,17 +20,14 @@ const Decks = () => {
     }
 
     return (
-        <>
-            <h1 className='decks-header'>Decks</h1>
-            <motion.div className='decks-motion'
-                variants={containerVariants} 
-                initial='hidden' 
-                animate='visible'
-                exit='exit'
-            >
+        <div className='decks-container'>
+            <div className='decks-header'>
+                <h2>Decks</h2>
+            </div>
+            <motion.div className='deck-options-container'>
                 {populate()}
             </motion.div>
-        </>
+        </div>
     )
 }
   
