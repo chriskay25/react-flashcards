@@ -8,18 +8,24 @@ import { getDeck } from '../actions/deckActions'
 const buttonVariants = {
   hidden: {
     opacity: 0,
-    x: '100vw'
+    scale: 0,
   },
   visible: {
-    x: 0,
-    opacity: 1,
+    scale: 1,
+    opacity: 1, 
     transition: {
       delay: .3,
-      type: 'spring'
+      type: 'spring',
+      stiffness: 150,
     }
   },
   whileHover: {
-    scale: .9,
+    scale: 1.2,
+    color: 'var(--light)',
+    transition: {
+      type: 'spring',
+      stiffness: 20,
+    }
   }
 }
 
@@ -42,12 +48,11 @@ const Deck = () => {
       <div className="deck-display">
         {deck && <div className='deck-title'>
           <h2>{deck.name}</h2>
-          <p>- {deck.cards.length} Cards</p>
-          
+          <p style={{fontFamily: 'Montserrat', paddingLeft: '8px', color: 'lightsalmon'}}>({deck.cards.length} Cards)</p>
         </div>}
 
         {!mode && <span className='mode-select'>
-          <h2>Mode:</h2>
+          <h2>mode</h2>
           <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover' whileTap='whileTap'>Study</motion.button> 
           <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover'>Quiz</motion.button> 
         </span>}
