@@ -23,14 +23,12 @@ const SignupForm = () => {
     return (
         <div>
             <form className='auth-form' onSubmit={handleSubmit}>
-                <h1>SIGNUP</h1>
-                <label htmlFor='username'>Username: </label>
+                <h2>SIGNUP</h2>
+                {/* <label htmlFor='username'>Username: </label> */}
                 <input type='text' name='username' value={username} placeholder='Username' onChange={handleUsernameChange} />
-                    <br />
-                <label htmlFor='password'>Password: </label>
+                {/* <label htmlFor='password'>Password: </label> */}
                 <input type='text' name='password' value={password} placeholder='Password' onChange={handlePasswordChange} />
-                    <br />
-                <input type='submit' value='Submit' />
+                <input className='form-button' type='submit' value='Submit' />
             </form>
         </div>
     )
