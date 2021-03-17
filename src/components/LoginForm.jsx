@@ -23,7 +23,7 @@ const LoginForm = () => {
     return (
         <div>
             <form className='auth-form' onSubmit={handleSubmit}>
-                <h2>LOGIN</h2>
+                <h2 className='auth-form-title'>LOGIN</h2>
                 <input type='text' name='username' value={username} placeholder='Username' onChange={handleUsernameChange} />
                 <input type='text' name='password' value={password} placeholder='Password' onChange={handlePasswordChange} />
                 <input className='form-button' type='submit' value='Submit' />
