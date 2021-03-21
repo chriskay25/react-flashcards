@@ -1,55 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Card from '../components/Card'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { AnimatePresence } from 'framer-motion'
 
-const CardContainer = ({ cards, mode }) => {
-
-  const [index, setIndex] = useState(0)
-
-  const studyMode = () => {
-    return cards.map((card, idx) => {
-      return (
-        <Card
-          key={card.id} 
-          question={card.question} 
-          answer={card.answer} 
-          mode={mode} 
-          index={idx} 
-        />
-      ) 
-    })
-  }
-
-  const quizMode = () => {
-    const quizCard = cards[index]
-    return (
-      <Card 
-        key={quizCard} 
-        question={quizCard.question} 
-        answer={quizCard.answer} 
-        mode={mode} 
-        index={index} 
-        next={next} 
-        back={back} />
-    )
-  }
-
-  const next = () => {
-    if (index < cards.length - 1) {
-      setIndex(index + 1) 
-    }
-  }
-
-  const back = () => {
-    if (index > 0) {
-      setIndex(index - 1) 
-    }
-  }
+const CardContainer = ({ card, index, mode, next, back }) => {
 
   return(
     <div className='card-container'>
       <div className='inner-card-container'>
-        {mode === 'Study' && studyMode()}
-        {mode === 'Quiz' && quizMode()}
+        <AnimatePresence exitBeforeEnter>
+          {mode === 'Study' && 
+            <Card
+              card={card}
+              key={card.id} 
+              index={index}
+              mode={mode} />
+          }
+          {mode === 'Quiz' &&
+            <Card 
+            card={card}
+            key={card.id} 
+            index={index}
+            mode={mode} />
+          }
+        </AnimatePresence>
+      </div>
+
+      <div className='navigation-buttons'>
+        <button className='nav-button back-button' onClick={back}><FontAwesomeIcon icon={faArrowLeft} size='3x' /></button>
+        <button className='nav-button next-button' onClick={next}><FontAwesomeIcon icon={faArrowRight} size='3x' /></button>
       </div>
     </div>
   )
