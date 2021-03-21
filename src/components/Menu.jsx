@@ -7,24 +7,18 @@ import { faHouseUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 const menuVariants = {
     hidden: {
-        y: 0,
         opacity: 0,
-        scaleY: 0,
+        height: '0px',
         originY: 0,
     },
     visible: {
         opacity: 1,
-        scaleY: 1,
+        height: '200px',
         borderRadius: '1rem',
-        backgroundColor: 'var(--blue)',
-        transition: {
-            type: 'spring',
-            damping: 10,
-        }
     },
     closed: {
-        opacity: 1,
-        scaleY: 0,
+        opacity: 0,
+        height: '0px',
     }
 }
 
