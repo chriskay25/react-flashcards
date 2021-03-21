@@ -8,12 +8,15 @@ const DeckOption = ({ deckId, deckName, index }) => {
             marginTop: '.8rem',
             width: '40%',
             scaleX: 0,
+            x: '100vw',
         },
         visible: {
+            x: 0,
             padding: '1rem',
             scaleX: 1,
-            backgroundColor: 'var(--blue)',
-            color: 'var(--darker)',
+            backgroundColor: 'var(--dark)',
+            color: 'var(--lightblue)',
+            boxShadow: '0 0 0 0px var(--lightcoral)',
             transition: {
                 type: 'spring',
                 damping: 15,
@@ -21,13 +24,13 @@ const DeckOption = ({ deckId, deckName, index }) => {
             }
         },
         hover: {
+            boxShadow: '0 0 3px 2px var(--lightcoral)',
             originX: 0,
-            width: '80%',
-            color: 'var(--light)',
-            // boxShadow: '0px 0px 10px #000',
+            width: '70%',
+            color: 'var(--lightcoral)',
             transition: {
                 type: 'spring',
-                stiffness: 200,
+                stiffness: 175,
             }
         },
         exit: { x: '-100vw' }
