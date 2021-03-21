@@ -2,26 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Question from './Question'
 import Answer from './Answer'
 import StyledCard from '../styledComponents/StyledCard'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-const Card = ({ question, answer, index, mode, next, back }) => {
+const Card = ({ card, index, mode }) => {
   const [isCorrect, setIsCorrect] = useState(null)
 
-  useEffect(() => {
-    setIsCorrect(null)
-  },[index])
-
-  // const handleAnswerChange = (e) => {
-  //   setUserAnswer(e.target.value)
-  // }
-
-  // const handleAnswerSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log('user answered: ', userAnswer)
-  // }
-
   return (
-    <AnimatePresence exitBeforeEnter>
       <motion.div
         key={index}
         initial={{ x: '100vw', opacity: 0 }}
@@ -31,11 +17,10 @@ const Card = ({ question, answer, index, mode, next, back }) => {
       >
         <StyledCard correct={isCorrect}>
           <span className='question-number'><strong>{index + 1}.</strong></span>
-          <Question question={question} />
-          <Answer answer={answer} mode={mode} setIsCorrect={setIsCorrect} /> 
+          <Question question={card.question} />
+          <Answer answer={card.answer} mode={mode} setIsCorrect={setIsCorrect} /> 
         </StyledCard>
       </motion.div>
-    </AnimatePresence>
   )
 }
 
