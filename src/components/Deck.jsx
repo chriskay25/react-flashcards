@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import CardContainer from '../containers/CardContainer'
+import ModeSelect from '../components/ModeSelect'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getDeck } from '../actions/deckActions'
 
-const buttonVariants = {
+const modeSelectVariants = {
   hidden: {
     opacity: 0,
     scale: 0,
@@ -19,18 +20,21 @@ const buttonVariants = {
       stiffness: 150,
     }
   },
-  whileHover: {
-    scale: 1.2,
-    color: 'var(--light)',
-    transition: {
-      type: 'spring',
-      stiffness: 20,
-    }
+  hover: {
+    boxShadow: '0 0 0 4px var(--light)',
+    backgroundColor: 'var(--dark)',
+    color: 'var(--lightcoral)',
+  },
+  tap: {
+    boxShadow: '0 0 0 4px var(--light)',
+    backgroundColor: 'var(--dark)',
+    color: 'var(--lightcoral)',
   }
 }
 
 const Deck = () => {
   const [mode, setMode] = useState(null)
+  const [index, setIndex] = useState(0)
   const deck = useSelector(state => state.deckReducer.deck)
   const params = useParams()
   const dispatch = useDispatch()
@@ -44,22 +48,30 @@ const Deck = () => {
     setMode(e.target.innerHTML)
   }
 
-    return (
-      <div className="deck-display">
-        {deck && <div className='deck-title'>
-          <h2>{deck.name}</h2>
-          <p style={{fontFamily: 'Montserrat', paddingLeft: '8px', color: 'lightsalmon'}}>({deck.cards.length} Cards)</p>
-        </div>}
+  const next = () => {
+    if (index < deck.cards.length - 1) {
+      setIndex(index + 1) 
+    }
+  }
 
-        {!mode && <span className='mode-select'>
-          <h2>mode</h2>
-          <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover' whileTap='whileTap'>Study</motion.button> 
-          <motion.button onClick={handleClick} variants={buttonVariants} initial='hidden' animate='visible' whileHover='whileHover'>Quiz</motion.button> 
-        </span>}
+  const back = () => {
+    if (index > 0) {
+      setIndex(index - 1) 
+    }
+  }
 
-        {mode && <CardContainer cards={deck.cards} mode={mode} />}
-      </div>
-    )
+  return (
+    <div className="deck-display">
+      {deck && <div className='deck-title'>
+        <h1>{deck.name}</h1>
+        <p style={{fontFamily: 'Montserrat', paddingLeft: '8px', color: 'lightsalmon'}}>({deck.cards.length} Cards)</p>
+      </div>}
+
+      {!mode && <ModeSelect handleClick={handleClick} />}
+
+      {mode && <CardContainer card={deck.cards[index]} index={index} mode={mode} next={next} back={back} />}
+    </div>
+  )
 }
 
 export default Deck
