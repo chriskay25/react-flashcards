@@ -3,34 +3,7 @@ import CardContainer from '../containers/CardContainer'
 import ModeSelect from '../components/ModeSelect'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { getDeck } from '../actions/deckActions'
-
-const modeSelectVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0,
-  },
-  visible: {
-    scale: 1,
-    opacity: 1, 
-    transition: {
-      delay: .3,
-      type: 'spring',
-      stiffness: 150,
-    }
-  },
-  hover: {
-    boxShadow: '0 0 0 4px var(--light)',
-    backgroundColor: 'var(--dark)',
-    color: 'var(--lightcoral)',
-  },
-  tap: {
-    boxShadow: '0 0 0 4px var(--light)',
-    backgroundColor: 'var(--dark)',
-    color: 'var(--lightcoral)',
-  }
-}
 
 const Deck = () => {
   const [mode, setMode] = useState(null)
