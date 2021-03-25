@@ -10,6 +10,7 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
 
 const Card = ({ card, index, mode }) => {
   const [isCorrect, setIsCorrect] = useState(null)
+  const [hintVisible, setHintVisible] = useState(false)
 
   return (
       <motion.div
@@ -25,8 +26,8 @@ const Card = ({ card, index, mode }) => {
           <Question question={card.question} />
           <Answer answer={card.answer} mode={mode} setIsCorrect={setIsCorrect} /> 
           <div className='hint-container'>
-            <FontAwesomeIcon className='fontawesome-lightbulb' icon={faLightbulb} size='2x' />
-            <Hint hint={card.hint} />
+            <FontAwesomeIcon onClick={() => setHintVisible(!hintVisible)} className='fontawesome-lightbulb' icon={faLightbulb} size='2x' />
+            <Hint hint={card.hint} open={hintVisible} />
           </div>
           <motion.div className='checkmark-div' initial={{scaleY: 0}} animate={{scaleY: 1}}>
             {isCorrect && <Checkmark />}
