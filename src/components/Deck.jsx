@@ -42,7 +42,7 @@ const Deck = () => {
 
       {!mode && <ModeSelect handleClick={handleClick} />}
 
-      {mode && <CardContainer card={deck.cards[index]} index={index} mode={mode} next={next} back={back} />}
+      {mode && <CardContainer card={deck.cards[index]} index={index} mode={mode} next={next} back={back} cardsInDeck={deck.cards.length} />}
     </div>
   )
 }
