@@ -8,7 +8,7 @@ const hintVariants = {
 
 const Hint = ({ hint, open }) => {
     return (
-        <motion.div className='hint' initial='hidden' animate={ open ? 'visible' : 'hidden' } variants={hintVariants}>
+        <motion.div className='hint' initial={false} animate={ open ? 'visible' : 'hidden' } variants={hintVariants}>
             HINT: { hint ? hint : ''}
         </motion.div>
     )
