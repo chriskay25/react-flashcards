@@ -1,7 +1,4 @@
-import React, { useState } from 'react'
-// import { Link, Redirect } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 import { useDispatch } from 'react-redux'
@@ -10,17 +7,19 @@ import Menu from './Menu'
 
 const navBarVariants = {
   hidden: {
-    height: '0px',
+    height: '25px',
   },
   visible: {
-    height: '5rem',
-    // backgroundColor: 'var(--lightred)',
+    height: [null, '50px'],
     justifyContent: 'center',
   },
   loggedIn: {
-    height: '2.5rem',
-    // backgroundColor: 'none',
-    justifyContent: 'left',
+    height: '25px',
+    justifyContent: 'flex-start',
+    transition: {
+      duration: 1,
+      type: 'spring',
+    }
   }
 }
 
@@ -28,37 +27,34 @@ const titleVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    fontSize: '3rem',
+    fontSize: '40px',
   },
   loggedIn: {
-    fontSize: '1.5rem',
+    fontSize: '20px',
+    paddingLeft: '1rem',
+    transition: {
+      duration: .5,
+    }
   }
 }
 
 const NavBar = () => {
   const currentUser = useSelector(state => state.userReducer.currentUser)
   const dispatch = useDispatch()
-  const [menuOpen, setMenuOpen] = useState(false)
 
   const logoutUser = () => {
     dispatch(userLogout())
   }
 
-  const handleMenuClick = () => {
-    setMenuOpen(!menuOpen)
-  }
-
   return (
-    <motion.div className='NavBar' initial='hidden' animate={currentUser ? 'loggedIn' : 'visible'} variants={navBarVariants}>
-      <div className='app-title'>
-        <motion.h1 className='title' initial='hidden' animate={currentUser ? 'loggedIn' : 'visible'} variants={titleVariants}>FLASHCARDS</motion.h1>
-      </div>
-      <div className='menu-container'>
-        <div className='fontawesome-bars' onClick={handleMenuClick}>
-          {menuOpen ? <FontAwesomeIcon icon={faTimes} size='2x' /> : <FontAwesomeIcon icon={faBars} size='2x' />}
-        </div>
-        <Menu open={menuOpen} logoutUser={logoutUser} />
-      </div>
+    <motion.div className='NavBar' layout initial='hidden' animate={currentUser ? 'loggedIn' : 'visible'} variants={navBarVariants}>
+      
+      <motion.div layout className='app-title' initial='hidden' animate={currentUser ? 'loggedIn' : 'visible'} variants={titleVariants}>
+        <div className='title'>FLASHCARDS</div>
+      </motion.div>
+
+      {currentUser && <Menu logoutUser={logoutUser} />}
+    
     </motion.div>
   )
 }
