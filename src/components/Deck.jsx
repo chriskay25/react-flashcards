@@ -8,6 +8,7 @@ import { getDeck } from '../actions/deckActions'
 const Deck = () => {
   const [mode, setMode] = useState(null)
   const [index, setIndex] = useState(0)
+  const [prevIndex, setPrevIndex] = useState(null)
   const deck = useSelector(state => state.deckReducer.deck)
   const params = useParams()
   const dispatch = useDispatch()
@@ -23,12 +24,14 @@ const Deck = () => {
 
   const next = () => {
     if (index < deck.cards.length - 1) {
+      setPrevIndex(index)
       setIndex(index + 1) 
     }
   }
 
   const back = () => {
     if (index > 0) {
+      setPrevIndex(index)
       setIndex(index - 1) 
     }
   }
@@ -42,7 +45,15 @@ const Deck = () => {
 
       {!mode && <ModeSelect handleClick={handleClick} />}
 
-      {mode && <CardContainer card={deck.cards[index]} index={index} mode={mode} next={next} back={back} cardsInDeck={deck.cards.length} />}
+      {mode && <CardContainer 
+        card={deck.cards[index]} 
+        index={index}
+        prevIndex={prevIndex}
+        mode={mode} 
+        next={next} 
+        back={back} 
+        cardCount={deck.cards.length} 
+      />}
     </div>
   )
 }
