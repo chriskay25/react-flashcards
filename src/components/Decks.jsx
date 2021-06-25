@@ -5,17 +5,43 @@ import { getDecks } from '../actions/deckActions'
 import { useSelector, useDispatch } from 'react-redux'
 
 const Decks = () => {
+
+    const optionVariants = {
+        hidden: {
+            x: '100vw',
+        },
+        visible: i => ({
+            x: 0,
+            transition: {
+                delay: i/4,
+                type: 'spring',
+                damping: 15,
+            }
+        }),
+    }
+
     const decks = useSelector(state => state.deckReducer.decks)
     const dispatch = useDispatch()
     
     useEffect(() => {
         dispatch(getDecks())
-        console.log('useEffect getDecks')
     }, [dispatch])
 
     const populate = () => {
         return decks.map((deck, idx) => {
-            return <DeckOption key={deck.id} deckId={deck.id} index={idx + 1} deckName={deck.name} />
+            return (
+                <motion.div 
+                    className='deck-option-container' 
+                    key={deck.id} 
+                    variants={optionVariants} 
+                    custom={idx} 
+                    initial='hidden' 
+                    animate='visible'
+                    layout
+                >
+                    <DeckOption deck={deck} />
+                </motion.div>
+            )
         })
     }
 
@@ -24,9 +50,9 @@ const Decks = () => {
             <div className='decks-header'>
                 <h2>Decks</h2>
             </div>
-            <motion.div className='deck-options-container'>
+            <div className='deck-options-container'>
                 {populate()}
-            </motion.div>
+            </div>
         </div>
     )
 }
