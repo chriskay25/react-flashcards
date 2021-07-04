@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 import { useDispatch } from 'react-redux'
 import { userLogout } from '../actions/userActions'
 import Menu from './Menu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const navBarVariants = {
   hidden: {
@@ -15,7 +17,7 @@ const navBarVariants = {
   },
   loggedIn: {
     height: '25px',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     transition: {
       duration: 1,
       type: 'spring',
@@ -31,7 +33,6 @@ const titleVariants = {
   },
   loggedIn: {
     fontSize: '20px',
-    paddingLeft: '1rem',
     transition: {
       duration: .5,
     }
@@ -41,6 +42,11 @@ const titleVariants = {
 const NavBar = () => {
   const currentUser = useSelector(state => state.userReducer.currentUser)
   const dispatch = useDispatch()
+  const [open, setOpen] = useState(false)
+
+  const handleMenuClick = () => {
+      if (!open) setOpen(true)
+  }
 
   const logoutUser = () => {
     dispatch(userLogout())
@@ -53,8 +59,16 @@ const NavBar = () => {
         <div className='title'>FLASHCARDS</div>
       </motion.div>
 
-      {currentUser && <Menu logoutUser={logoutUser} />}
-    
+      {currentUser && 
+        <div className='menu-button' onClick={handleMenuClick}>
+          <div className='fontawesome-menu-button'>
+            {open ? <FontAwesomeIcon icon={faTimes} size='2x' /> : <FontAwesomeIcon icon={faBars} size='2x' />}
+          </div>
+        </div>
+      }
+
+      <Menu logoutUser={logoutUser} open={open} setOpen={setOpen} />
+     
     </motion.div>
   )
 }
