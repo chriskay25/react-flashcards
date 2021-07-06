@@ -4,49 +4,63 @@ import { Redirect, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-const DeckOption = ({ deck }) => {
-    const optionVariants = {
-        hidden: {
-        },
-        visible: {
-            width: '50%',
-            color: 'var(--lightblue)',
-            boxShadow: '0 0 0 0px var(--lightcoral)',
-        },
-        open: {
-            width: '100%',
-            color: 'var(--lightcoral)',
-            boxShadow: '0 0 3px 2px var(--lightcoral)',
-            transition: {
-                type: 'spring',
-                stiffness: 175,
-                damping: 25,
-            }
-        },
-        exit: { x: '-100vw' }
-    }
+const optionVariants = {
+    hidden: {
+        opacity: 0,
+        fontSize: '1rem',
+    },
+    visible: {
+        opacity: 1,
+        fontSize: '1rem',
+        width: '70%',
+        color: 'var(--lightblue)',
+    },
+    open: {
+        opacity: 1,
+        fontSize: '1.5rem',
+        width: '100%',
+        color: 'var(--lightcoral)',
+        transition: {
+            type: 'spring',
+            stiffness: 175,
+            damping: 25,
+        }
+    },
+    exit: { x: '-100vw' }
+}
 
+const DeckOption = ({ deck, selected }) => {
     const [redirected, setRedirected] = useState(false)
-    const [open, setOpen] = useState(false)
     const location = useLocation()
     const locationState = JSON.stringify({ from: location })
 
     return (
         <motion.div className='deck-option' 
-            initial='hidden' 
-            animate={open ? 'open' : 'visible'}
+            initial='hidden'
+            animate={selected ? 'open' : 'visible'}
             exit='exit'
             variants={optionVariants}
-            onClick={ () => setOpen(!open) }
+            layout
         >
+            {selected && (
+                <motion.div
+                    className='outline'
+                    layoutId='outline'
+                    initial={false}
+                    animate={{ borderColor: 'var(--light' }}
+                    transition={{type: 'spring', stiffness: 500, damping: 30}}
+                />
+            )}
+
             {redirected && <Redirect to={{ pathname: `/decks/${deck.id}`, state: locationState }} />}
+            
             <h2 className='deck-option-name'>{deck.name}</h2>
-            {open && <div>{deck.cards.length} Cards</div>}
-            {open && 
-                <motion.button 
-                    className='deck-option-bttn' 
-                    animate={{opacity: 1}} 
-                    transition={{delay: .4}}
+            
+            {selected && <div>{deck.cards.length} Cards</div>}
+
+            {selected && 
+                <motion.button className='deck-option-bttn' 
+                    animate={selected ? {opacity: 1} : {opacity: 0}}
                     onClick={ () => setRedirected(!redirected) }
                 >
                     <FontAwesomeIcon icon={faArrowRight} size={'2x'} />
