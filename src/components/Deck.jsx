@@ -36,6 +36,11 @@ const Deck = () => {
     }
   }
 
+  const goTo = (x) => {
+    setPrevIndex(index)
+    setIndex(x - 1)
+  }
+
   return (
     <div className="deck-display">
       {deck && <div className='deck-title'>
@@ -52,6 +57,7 @@ const Deck = () => {
         mode={mode} 
         next={next} 
         back={back} 
+        goTo={goTo}
         cardCount={deck.cards.length} 
       />}
     </div>
