@@ -22,3 +22,12 @@ export const startSession = (deck) => {
         })
     }
 }
+
+export const questionAnswered = (id) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'ANSWERED',
+            payload: id
+        })
+    }
+}
