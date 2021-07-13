@@ -9,7 +9,7 @@ import rootReducer from './reducers/rootReducer'
 import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true}) || compose;
 
 let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
