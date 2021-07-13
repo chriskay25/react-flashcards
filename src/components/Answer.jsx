@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { TextareaAutosize } from '@material-ui/core'
 
 const answerVariants = {
   hidden: {
@@ -10,7 +11,7 @@ const answerVariants = {
   }
 }
 
-const Answer = ({ answer, mode, setIsCorrect }) => {
+const Answer = ({ answer, mode, setAnswered, setCorrect }) => {
   const [userAnswer, setUserAnswer] = useState('')
   const [disabled, setDisabled] = useState(false)
 
@@ -19,13 +20,14 @@ const Answer = ({ answer, mode, setIsCorrect }) => {
   }
 
   const handleAnswerSubmit = (e) => {
-    answer === userAnswer ? setIsCorrect(true) : setIsCorrect(false)
+    answer === userAnswer ? setCorrect(true) : setCorrect(false)
+    setAnswered(true)
     setDisabled(true)
   }
 
   return (
     <motion.div className='answer' variants={answerVariants} initial='hidden' animate='visible'>
-      {mode === 'Quiz' ? <input type='text' value={userAnswer} onChange={handleAnswerChange} placeholder='Answer'></input> : answer}
+      {mode === 'Quiz' ? <TextareaAutosize value={userAnswer} onChange={handleAnswerChange} placeholder='Answer'></TextareaAutosize> : answer}
       <button className='answer-submit' onClick={handleAnswerSubmit} disabled={disabled}>Submit</button>
     </motion.div>
   )
