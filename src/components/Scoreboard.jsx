@@ -2,7 +2,7 @@ import React from 'react'
 
 const Scoreboard = () => {
   return (
-    <div className='Scoreboard'>
+    <div className='scoreboard'>
       Scoreboard
     </div>
   )
