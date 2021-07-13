@@ -24,7 +24,7 @@ const SignupForm = () => {
         <div>
             <form className='auth-form' onSubmit={handleSubmit}>
                 <h2 className='auth-form-title'>SIGNUP</h2>
-                <input type='text' name='username' value={username} placeholder='Username' onChange={handleUsernameChange} />
+                <input type='text' name='username' value={username} placeholder='Username' onChange={handleUsernameChange} autoFocus={true} />
                 <input type='text' name='password' value={password} placeholder='Password' onChange={handlePasswordChange} />
                 <input className='form-button' type='submit' value='Submit' />
             </form>
