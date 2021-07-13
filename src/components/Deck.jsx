@@ -4,6 +4,7 @@ import ModeSelect from '../components/ModeSelect'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getDeck } from '../actions/deckActions'
+import { startSession } from '../actions/sessionActions'
 
 const Deck = () => {
   const [mode, setMode] = useState(null)
@@ -20,6 +21,7 @@ const Deck = () => {
   const handleClick = (e) => {
     e.preventDefault()
     setMode(e.target.innerHTML)
+    dispatch(startSession(deck))
   }
 
   const next = () => {
