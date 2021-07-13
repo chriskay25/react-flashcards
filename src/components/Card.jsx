@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Question from './Question'
 import Answer from './Answer'
-import StyledCard from '../styledComponents/StyledCard'
 import CardNav from './CardNav'
 import { motion } from 'framer-motion'
 import Hint from './Hint'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import Checkmark from './Checkmark';
 
 const cardVariants = {
   enterRight: {
@@ -36,7 +36,7 @@ const cardVariants = {
   }
 }
 
-const Card = ({ card, index, prevIndex, mode, back, next, cardCount }) => {
+const Card = ({ card, index, prevIndex, mode, back, next, goTo, cardCount }) => {
   const [correct, setCorrect] = useState(null)
   const [answered, setAnswered] = useState(false)
   const [hintVisible, setHintVisible] = useState(false)
@@ -52,17 +52,17 @@ const Card = ({ card, index, prevIndex, mode, back, next, cardCount }) => {
         transition={{type: 'spring', stiffness: 175, damping: 25}}
         exit={direction === 'forward' ? 'exitLeft' : 'exitRight'}
       >
-        <StyledCard correct={correct}>
-          <span className='question-number' style={{fontFamily: 'Bungee', color: 'var(--red'}}><strong>{index + 1}.</strong></span>
+        <motion.div className='inner-card'>
+          <span className='question-number'>{index + 1}.</span>
           <Question question={card.question} />
-          <Answer answer={card.answer} mode={mode} setIsCorrect={setCorrect} /> 
+          <Answer answer={card.answer} mode={mode} setAnswered={setAnswered} setCorrect={setCorrect} id={card.id} />
           <div className='hint-container'>
             <FontAwesomeIcon onClick={() => setHintVisible(!hintVisible)} className='fontawesome-lightbulb' icon={faLightbulb} size='2x' />
             <Hint hint={card.hint} open={hintVisible} />
           </div>
-        </StyledCard>
-
-        <CardNav back={back} next={next} cardCount={cardCount} setDirection={setDirection} />
+        </motion.div>
+        <CardNav back={back} next={next} cardCount={cardCount} goTo={goTo} prevIndex={prevIndex} index={index} setDirection={setDirection} />
+        {answered && <Checkmark correct={correct} />}
       </motion.div>
   )
 }
