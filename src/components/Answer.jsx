@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { questionAnswered } from '../actions/sessionActions'
 import { motion } from 'framer-motion'
 import { TextareaAutosize } from '@material-ui/core'
 
@@ -11,9 +13,10 @@ const answerVariants = {
   }
 }
 
-const Answer = ({ answer, mode, setAnswered, setCorrect }) => {
+const Answer = ({ answer, mode, setAnswered, setCorrect, id }) => {
   const [userAnswer, setUserAnswer] = useState('')
   const [disabled, setDisabled] = useState(false)
+  const dispatch = useDispatch()
 
   const handleAnswerChange = (e) => {
     setUserAnswer(e.target.value)
@@ -23,6 +26,7 @@ const Answer = ({ answer, mode, setAnswered, setCorrect }) => {
     answer === userAnswer ? setCorrect(true) : setCorrect(false)
     setAnswered(true)
     setDisabled(true)
+    dispatch(questionAnswered(id))
   }
 
   return (
