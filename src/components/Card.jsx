@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Question from './Question'
 import Answer from './Answer'
-import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Hint from './Hint'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
@@ -40,25 +40,21 @@ const Card = ({ card, index, mode, direction }) => {
 
   return (
       <motion.div className='card' style={{overflow: 'hidden'}}>
-        <AnimateSharedLayout>
-            <AnimatePresence exitBeforeEnter initial={false}>
-                <motion.div className='inner-card' 
-                    key={index}
-                    variants={cardVariants}
-                    initial={direction === 'forward' ? 'enterRight' : 'enterLeft'}
-                    animate='visible'
-                    transition={{type: 'spring', stiffness: 175, damping: 25}}
-                    exit={direction === 'forward' ? 'exitLeft' : 'exitRight'}
-                >
-                  <span className='question-number'>{index + 1}.</span>
-                  <Question question={card.question} />
-                  <Answer answer={card.answer} answered={card.answered} mode={mode} id={card.id} />
-                  <FontAwesomeIcon onClick={() => setHintVisible(!hintVisible)} className='fontawesome-lightbulb' icon={faLightbulb} size='2x' />
-                  {hintVisible && <Hint hint={card.hint} open={hintVisible} />}
-                </motion.div>
-            {/* {answered && <Checkmark correct={correct} />} */}
-            </AnimatePresence>
-        </AnimateSharedLayout>
+        <motion.div className='inner-card' 
+            key={index}
+            variants={cardVariants}
+            initial={direction === 'forward' ? 'enterRight' : 'enterLeft'}
+            animate='visible'
+            transition={{type: 'spring', stiffness: 175, damping: 25}}
+            exit={direction === 'forward' ? 'exitLeft' : 'exitRight'}
+        >
+          <span className='question-number'>{index + 1}.</span>
+          <Question question={card.question} />
+          <Answer answer={card.answer} answered={card.answered} mode={mode} id={card.id} />
+          <FontAwesomeIcon onClick={() => setHintVisible(!hintVisible)} className='fontawesome-lightbulb' icon={faLightbulb} size='2x' />
+          {hintVisible && <Hint hint={card.hint} open={hintVisible} />}
+        </motion.div>
+        {/* {answered && <Checkmark correct={correct} />} */}
       </motion.div>
   )
 }
