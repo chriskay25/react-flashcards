@@ -1,22 +1,14 @@
-Auth
-- Signup
-- Login
-
-Different views/modes:
-- View All Decks
-  - Cards displayed?
-  - Ability to accordion cards for each deck?
-  - Should it just show user's decks? 
+- Bugs
+    - The central card nav doesn't always work the way it's intended. Exit direction is sometimes wrong, and navigation doesn't always occur...
 
 - View Single Deck
   - Ability to add/edit/delete cards
 
 - Single Card
-  - Ability to add/edit/delete questions and answers
-  - Provide a hint feature (could be useful for reminding yourself of necessary syntax or something)
-  
+  - Add/edit/delete hints, questions, and answers
 
-- Playthrough 
-  - One card at a time
-  - Keep score
-  - Optional timer
+
+-Study Mode 
+  -Click card to have it flip and display answer
+
+New Deck Bttn
