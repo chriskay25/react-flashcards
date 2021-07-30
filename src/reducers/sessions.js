@@ -1,7 +1,8 @@
-const updateCardInArray = (array, cardId) => {
-    const updatedCards = array.map(card => {
+const updateAnsweredCard = (cards, cardId, answer) => {
+    const updatedCards = cards.map(card => {
       if (card.id !== cardId) return card
       card.answered = true
+      card.correct = card.answer === answer ? true : false
       return card
     })
   
@@ -23,7 +24,8 @@ export const sessionReducer = (state = initialState, action) => {
             cards: action.payload.cards
         };
     case 'ANSWERED':
-        const newCards = updateCardInArray(state.cards, action.payload)
+        const newCards = updateAnsweredCard(state.cards, action.payload.id, action.payload.answer)
+        console.log('payload: ', action.payload)
         return {
             ...state,
             cards: newCards
