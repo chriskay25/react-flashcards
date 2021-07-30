@@ -25,7 +25,6 @@ export const sessionReducer = (state = initialState, action) => {
         };
     case 'ANSWERED':
         const newCards = updateAnsweredCard(state.cards, action.payload.id, action.payload.answer)
-        console.log('payload: ', action.payload)
         return {
             ...state,
             cards: newCards

@@ -9,7 +9,6 @@ import SignupForm from './components/SignupForm'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCurrentUser } from './actions/userActions'
-// import { render } from '@testing-library/react';
 // import { AnimatePresence } from 'framer-motion'
 
 
@@ -20,7 +19,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getCurrentUser())
-    console.log('running')
   }, [dispatch])
 
   return (
