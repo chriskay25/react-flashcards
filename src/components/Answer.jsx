@@ -13,9 +13,8 @@ const answerVariants = {
   }
 }
 
-const Answer = ({ answer, mode, setAnswered, setCorrect, id }) => {
+const Answer = ({ answer, mode, answered, id }) => {
   const [userAnswer, setUserAnswer] = useState('')
-  const [disabled, setDisabled] = useState(false)
   const dispatch = useDispatch()
 
   const handleAnswerChange = (e) => {
@@ -23,16 +22,17 @@ const Answer = ({ answer, mode, setAnswered, setCorrect, id }) => {
   }
 
   const handleAnswerSubmit = (e) => {
-    answer === userAnswer ? setCorrect(true) : setCorrect(false)
-    setAnswered(true)
-    setDisabled(true)
-    dispatch(questionAnswered(id))
+    const payload = {
+        id: id,
+        answer: userAnswer
+    }
+    dispatch(questionAnswered(payload))
   }
 
   return (
-    <motion.div className='answer' variants={answerVariants} initial='hidden' animate='visible'>
-      {mode === 'Quiz' ? <TextareaAutosize value={userAnswer} onChange={handleAnswerChange} placeholder='Answer'></TextareaAutosize> : answer}
-      <button className='answer-submit' onClick={handleAnswerSubmit} disabled={disabled}>Submit</button>
+    <motion.div className='answer' variants={answerVariants} initial='hidden' animate='visible' layout>
+      {mode === 'quiz' ? <TextareaAutosize value={userAnswer} onChange={handleAnswerChange} placeholder='Answer'></TextareaAutosize> : answer}
+      <button className='answer-submit' onClick={handleAnswerSubmit} disabled={answered}>Submit</button>
     </motion.div>
   )
 }
