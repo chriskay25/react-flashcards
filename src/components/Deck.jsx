@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CardContainer from '../containers/CardContainer'
 import ModeSelect from '../components/ModeSelect'
+import CardNav from '../components/CardNav'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getDeck } from '../actions/deckActions'
@@ -9,8 +10,9 @@ import { startSession } from '../actions/sessionActions'
 const Deck = () => {
   const [mode, setMode] = useState(null)
   const [index, setIndex] = useState(0)
-  const [prevIndex, setPrevIndex] = useState(null)
+  const [direction, setDirection] = useState('forward')
   const deck = useSelector(state => state.deckReducer.deck)
+  const session = useSelector(state => state.sessionReducer)
   const params = useParams()
   const dispatch = useDispatch()
 
@@ -18,29 +20,25 @@ const Deck = () => {
     dispatch(getDeck(params.id))
   }, [dispatch, params.id])
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    setMode(e.target.innerHTML)
+  const handleModeSelect = (mode) => {
+    setMode(mode)
     dispatch(startSession(deck))
   }
 
   const next = () => {
-    if (index < deck.cards.length - 1) {
-      setPrevIndex(index)
+    if (index < session.cards.length - 1) {
       setIndex(index + 1) 
     }
   }
 
   const back = () => {
     if (index > 0) {
-      setPrevIndex(index)
       setIndex(index - 1) 
     }
   }
 
   const goTo = (x) => {
-    setPrevIndex(index)
-    setIndex(x - 1)
+    if (x > 0 && x < session.cards.length - 1) setIndex(x - 1)
   }
 
   return (
@@ -50,18 +48,25 @@ const Deck = () => {
         <p style={{fontFamily: 'Montserrat', paddingLeft: '8px', color: 'lightsalmon'}}>({deck.cards.length} Cards)</p>
       </div>}
 
-      {!mode && <ModeSelect handleClick={handleClick} />}
+      {!mode && <ModeSelect handleModeSelect={handleModeSelect} />}
 
       {mode && <CardContainer 
-        card={deck.cards[index]} 
+        card={session.cards[index]} 
         index={index}
-        prevIndex={prevIndex}
         mode={mode} 
-        next={next} 
-        back={back} 
-        goTo={goTo}
-        cardCount={deck.cards.length} 
+        cardCount={session.cards.length} 
+        direction={direction}
       />}
+
+      {mode && <CardNav 
+            back={back} 
+            next={next} 
+            cardCount={session.cards.length} 
+            goTo={goTo} 
+            index={index} 
+            id={session.cards[index].id}
+            setDirection={setDirection}
+        />}
     </div>
   )
 }
