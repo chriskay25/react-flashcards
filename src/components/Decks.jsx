@@ -1,22 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion'
+import { motion, AnimateSharedLayout } from 'framer-motion'
 import DeckOption from './DeckOption'
 import { getDecks } from '../actions/deckActions'
 import { useSelector, useDispatch } from 'react-redux'
-
-const optionVariants = {
-    hidden: {
-        x: '100vw',
-    },
-    visible: i => ({
-        x: 0,
-        transition: {
-            delay: i/4,
-            type: 'spring',
-            damping: 15,
-        }
-    }),
-}
 
 const Decks = () => {
     const ref = useRef()
@@ -33,10 +19,8 @@ const Decks = () => {
 
         const handleOutsideClick = (e) => {
             if (ref.current.contains(e.target)) {
-                console.log('ref inside: ', ref)
                 return 
             }
-            console.log('ref outside: ', ref)
             setSelectedId(null)
         }
 
@@ -56,7 +40,6 @@ const Decks = () => {
                         <motion.div 
                             className='deck-option-container' 
                             key={deck.id} 
-                            layoutId={deck.id} 
                             onClick={() => handleClick(deck.id)}
                         >
                             <DeckOption deck={deck} selected={selectedId === deck.id} setSelectedId={setSelectedId} />
