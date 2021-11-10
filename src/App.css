@@ -99,6 +99,7 @@ button:disabled {
   position: relative;
   overflow: hidden;
   font-family: 'Montserrat';
+  /* animation: app-background .8s ease-in-out .6s forwards; */
 }
 
 .NavBar {
@@ -163,7 +164,7 @@ button:disabled {
 /* FORMS */
 
 .auth-form {
-  background-color: var(--light);
+  background-color: var(--lighter);
   color: var(--dark);
   margin: 20vh auto;
   width: 80vw;
@@ -189,7 +190,7 @@ input {
   font-size: 1.5rem;
   width: 100%;
   border-bottom: solid 2px gray;
-  background-color: var(--light);
+  background-color: var(--lighter);
 }
 
 .auth-form input[type=text]:hover {
@@ -248,14 +249,15 @@ input {
   flex-wrap: wrap;
   align-items: center; 
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .mode-select-container h2 {
-    margin-top: 75px;
+    margin-top: 25px;
     width: 100%;
     text-align: center;
     color: var(--light);
+    z-index: 2;
 }
 
 .motion-option {
@@ -325,7 +327,8 @@ input {
 }
 
 .deck-option-name {
-  margin: 0;
+  /* margin: 0; */
+  font-size: 2rem;
 }
 
 .deck-option-bttn {
@@ -347,14 +350,15 @@ input {
   width: 80vw;
   max-width: 900px;
   margin: 0 auto;
-  border-radius: .75rem;
+  border-radius: 5rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  background:rgba(0, 0, 0, 0.74)
 }
 
 .decks-header {
   border-bottom: solid 3px var(--light);
   margin: 6rem 2rem 0rem;
-  padding: .2rem 1.5rem;
+  padding: 1.5rem 1.5rem .2rem;
   font-style: italic;
   font-size: 3rem;
   color: var(--light);
@@ -451,7 +455,7 @@ input {
 }
 
 .navigation-buttons {
-  max-width: 90%;
+  max-width: 750px;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
@@ -461,19 +465,18 @@ input {
 
 .nav-button {
   cursor: pointer;
-  color: var(--darkblue);
+  color: var(--lightgrey);
   padding: 1rem 2rem;
   width: 25%;
   border-radius: 1rem;
   border: rgba(0, 0, 0, 0) solid 2px;
   background-color: rgba(0, 0, 0, 1);
-  box-shadow: 0px 0px 2px 0px var(--darkblue);
+  box-shadow: 0px 0px 2px 1px var(--light);
 }
 
 .nav-button:hover {
-  color: var(--light);
-  border: solid 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 4px 2px var(--darkblue);
+  /* border: solid 2px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0px 0px 5px 3px var(--darkblue);
   transition-duration: .5s;
   transition-timing-function: ease-in-out;
 }
@@ -484,16 +487,20 @@ input {
   transition-duration: .1s;
 }
 
+.card-nav {
+    /* background: transparent; */
+}
+
 .inner-card-nav {
   margin: .6rem 0;
   font-size: 1.9rem; 
   font-weight: 600;
-  color: var(--light);
+  color: var(--lightblue);
 }
 
 .card-nav-input {
-  background: none;
-  border-bottom: solid 2px var(--dark); 
+  background: transparent;
+  border-bottom: solid 1px var(--lightgrey); 
   width: 3rem;
   font-size: 2rem;
   text-align: center;
@@ -597,6 +604,11 @@ input {
 .incorrect {
   animation: checkmark-incorrect .6s ease-in-out .6s forwards;
 }
+
+/* @keyframes app-background {
+  0% {background-size: 20px 20px}
+  100% {background-size: 60px 60px}
+} */
 
 @keyframes checkmark-correct {
   0% {box-shadow: inset 0px 0px 0px 0px var(--lightgreen)}
