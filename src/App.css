@@ -249,21 +249,25 @@ input {
   flex-wrap: wrap;
   align-items: center; 
   justify-content: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  z-index: 2;
 }
 
 .mode-select-container h2 {
-    margin-top: 25px;
+    padding-top: 1.6rem;
     width: 100%;
     text-align: center;
     color: var(--light);
-    z-index: 2;
+}
+
+.mode-select-container {
+  z-index: 2;
 }
 
 .motion-option {
   text-align: center;
   color: var(--light);
-  margin: 2.5rem;
+  margin: 2rem;
   font-family: 'Bungee';
   font-size: 2rem;
   border: none;
@@ -272,7 +276,9 @@ input {
 }
 
 .motion-option.selected {
-    font-size: 4rem;
+    font-size: 5rem;
+    z-index: 0;
+    color: var(--lighter);
 }
 
 .underline {
@@ -284,7 +290,7 @@ input {
 }
 
 .confirm-mode {
-    margin-top: 20px;
+    padding-bottom: 20px;
 }
 
 .confirm-mode button {
@@ -312,6 +318,7 @@ input {
   width: 100%;
   max-width: 500px;
   height: auto;
+  z-index: 1;
 }
 
 .deck-option {
@@ -320,14 +327,17 @@ input {
   border-radius: .6rem;
   text-align: center;
   margin: .8rem auto;
-  padding: 1rem;
   background-color: var(--dark);
   color: var(--lightblue);
   position: relative;
+  overflow: hidden;
+}
+
+.deck-option-title {
+  padding: 1rem;
 }
 
 .deck-option-name {
-  /* margin: 0; */
   font-size: 2rem;
 }
 
@@ -352,7 +362,8 @@ input {
   margin: 0 auto;
   border-radius: 5rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-  background:rgba(0, 0, 0, 0.74)
+  background:rgba(0, 0, 0, 0.74);
+  opacity: 0;
 }
 
 .decks-header {
@@ -576,6 +587,7 @@ input {
   bottom: -5px;
   border: 3px solid var(--dark);
   border-radius: 1rem;
+  z-index: 0;
 }
 
 .selected-div {
