@@ -1,3 +1,12 @@
+export const modeSelect = (mode) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'MODE',
+            payload: mode
+        })
+    }
+}
+
 export const startSession = (deck) => {
     return (dispatch) => {
 
