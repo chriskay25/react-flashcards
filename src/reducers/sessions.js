@@ -16,6 +16,11 @@ const initialState = {
 
 export const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'MODE':
+        return {
+            ...state,
+            mode: action.payload
+        }
     case 'START':
         return {
             ...state,
