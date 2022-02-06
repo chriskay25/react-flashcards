@@ -1,73 +1,61 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Redirect, useLocation } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
+import { motion } from "framer-motion";
+import ModeSelect from "./ModeSelect";
 
 const optionVariants = {
-    hidden: {
-        opacity: 0,
-        fontSize: '1rem',
-    },
-    visible: {
-        opacity: 1,
-        fontSize: '1rem',
-        width: '70%',
-        color: 'var(--lightblue)',
-    },
-    open: {
-        opacity: 1,
-        fontSize: '1.5rem',
-        width: '100%',
-        color: 'var(--lightcoral)',
-        transition: {
-            type: 'spring',
-            stiffness: 175,
-            damping: 25,
-        }
-    },
-    exit: { x: '-100vw' }
-}
+  hidden: {
+    opacity: 0,
+    borderRadius: "0.6rem",
+  },
+  visible: {
+    opacity: 1,
+    width: "100%",
+    color: "#c2dae2",
+    borderRadius: "0.6rem",
+    transition: { duration: 0.5 },
+  },
+  open: {
+    opacity: 1,
+    color: "var(--lightcoral)",
+    borderRadius: "0.6rem",
+  },
+};
 
-const DeckOption = ({ deck, selected }) => {
-    const [redirected, setRedirected] = useState(false)
-    const location = useLocation()
-    const locationState = JSON.stringify({ from: location })
-
-    return (
-        <motion.div className='deck-option' 
-            initial='hidden'
-            animate={selected ? 'open' : 'visible'}
-            exit='exit'
-            variants={optionVariants}
-            layout
+const DeckOption = ({ deck, selected, handleClick }) => {
+  return (
+    <motion.li
+      key={deck.id}
+      className="deck-option"
+      initial="hidden"
+      animate={selected ? "open" : "visible"}
+      exit="exit"
+      variants={optionVariants}
+      layout
+    >
+      <motion.div
+        style={{ padding: "1rem" }}
+        layout
+        onClick={() => handleClick(deck.id)}
+      >
+        <motion.h2
+          initial={{ fontSize: "2rem" }}
+          animate={selected ? { fontSize: "3rem" } : { fontSize: "2.5rem" }}
+          layout
         >
-            {selected && (
-                <motion.div
-                    className='outline'
-                    layoutId='outline'
-                    initial={false}
-                    animate={{ borderColor: 'var(--light' }}
-                    transition={{type: 'spring', stiffness: 500, damping: 30}}
-                />
-            )}
+          {deck.name}
+        </motion.h2>
+        {selected && (
+          <motion.div style={{ fontSize: "1.8rem" }} layout>
+            {deck.cards.length} Cards
+          </motion.div>
+        )}
+      </motion.div>
 
-            {redirected && <Redirect to={{ pathname: `/decks/${deck.id}`, state: locationState }} />}
-            
-            <h2 className='deck-option-name'>{deck.name}</h2>
-            
-            {selected && <div>{deck.cards.length} Cards</div>}
+      <motion.div className="mode-select-div" layout>
+        {selected && <ModeSelect deck={deck} />}
+      </motion.div>
+    </motion.li>
+  );
+};
 
-            {selected && 
-                <motion.button className='deck-option-bttn' 
-                    animate={selected ? {opacity: 1} : {opacity: 0}}
-                    onClick={ () => setRedirected(!redirected) }
-                >
-                    <FontAwesomeIcon icon={faArrowRight} size={'2x'} />
-                </motion.button>
-            }
-        </motion.div>
-    )
-}
-
-export default DeckOption
+export default DeckOption;
