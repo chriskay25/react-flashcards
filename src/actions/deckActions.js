@@ -1,51 +1,55 @@
 export const getDeck = (id) => {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/decks/${id}`)
-      .then(resp => resp.json())
-      .then(deck => {
+      .then((resp) => resp.json())
+      .then((deck) => {
         dispatch({
-          type: 'GET_DECK',
-          payload: deck
-        })
-      })
-  }
-}
+          type: "GET_DECK",
+          payload: deck,
+        });
+      });
+  };
+};
 
 export const getDecks = () => {
   return (dispatch) => {
-    fetch('http://localhost:3000/api/v1/decks')
-      .then(resp => resp.json())
-      .then(decks => {
+    fetch("http://localhost:3000/api/v1/decks")
+      .then((resp) => resp.json())
+      .then((decks) => {
         dispatch({
-          type: 'GET_DECKS',
-          payload: decks
-        })
-      })
-  }
-}
+          type: "GET_DECKS",
+          payload: decks,
+        });
+      });
+  };
+};
 
 export const addDeck = (data) => {
+  const token = localStorage.getItem("token");
+  // debugger;
   return (dispatch) => {
-    fetch('http://localhost:3000/api/v1/decks', {
+    fetch("http://localhost:3000/api/v1/decks", {
       headers: {
-        'Content-Type': 'application/json'
+        Authorization: token,
+        "Content-Type": "application/json",
       },
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
-        deck: data
-      })
+        name: data,
+      }),
     })
-      .then(resp => resp.json())
-      .then(deckData => {
-        console.log('cardData: ', deckData)
+      .then((resp) => resp.json())
+      .then((deckData) => {
+        debugger;
+        console.log("deckData: ", deckData);
         if (deckData.error) {
-            alert('Invalid Credentials')
+          alert(deckData.error);
         } else {
-            dispatch({
-                type: 'ADD_CARD',
-                payload: deckData
-            })
+          dispatch({
+            type: "ADD_DECK",
+            payload: deckData,
+          });
         }
-      })
-  }
-}
+      });
+  };
+};
