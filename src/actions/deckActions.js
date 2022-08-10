@@ -12,8 +12,13 @@ export const getDeck = (id) => {
 };
 
 export const getDecks = () => {
+  const token = localStorage.getItem("token");
   return (dispatch) => {
-    fetch("http://localhost:3000/api/v1/decks")
+    fetch("http://localhost:3000/api/v1/decks", {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((resp) => resp.json())
       .then((decks) => {
         dispatch({
@@ -40,7 +45,6 @@ export const addDeck = (data) => {
     })
       .then((resp) => resp.json())
       .then((deckData) => {
-        debugger;
         console.log("deckData: ", deckData);
         if (deckData.error) {
           alert(deckData.error);
