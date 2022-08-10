@@ -21,17 +21,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "90%",
-      }}
-    >
+    <div className="auth-form-container">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2 className="auth-form-title">LOGIN</h2>
         <input
+          className="auth-form-input"
           type="text"
           name="username"
           value={username}
@@ -40,13 +34,14 @@ const LoginForm = () => {
           autoFocus={true}
         />
         <input
-          type="text"
+          className="auth-form-input"
+          type="password"
           name="password"
           value={password}
           placeholder="Password"
           onChange={handlePasswordChange}
         />
-        <input className="form-button" type="submit" value="Submit" />
+        <input className="auth-form-submit" type="submit" value="Submit" />
       </form>
     </div>
   );
