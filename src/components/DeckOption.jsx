@@ -5,19 +5,18 @@ import ModeSelect from "./ModeSelect";
 const optionVariants = {
   hidden: {
     opacity: 0,
-    borderRadius: "0.6rem",
+    borderRadius: "10px",
   },
   visible: {
     opacity: 1,
     width: "100%",
     color: "#c2dae2",
-    borderRadius: "0.6rem",
-    transition: { duration: 0.5 },
+    borderRadius: "10px",
   },
   open: {
     opacity: 1,
     color: "var(--lightcoral)",
-    borderRadius: "0.6rem",
+    borderRadius: "10px",
   },
 };
 
@@ -34,14 +33,10 @@ const DeckOption = ({ deck, selected, handleClick }) => {
     >
       <motion.div
         style={{ padding: "1rem" }}
-        layout
         onClick={() => handleClick(deck.id)}
+        layout
       >
-        <motion.h2
-          initial={{ fontSize: "2rem" }}
-          animate={selected ? { fontSize: "3rem" } : { fontSize: "2.5rem" }}
-          layout
-        >
+        <motion.h2 style={{ fontSize: "2.5rem" }} layout>
           {deck.name}
         </motion.h2>
         {selected && (
