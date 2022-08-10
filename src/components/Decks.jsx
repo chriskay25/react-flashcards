@@ -1,54 +1,61 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { motion, AnimateSharedLayout } from 'framer-motion'
-import DeckOption from './DeckOption'
-import { getDecks } from '../actions/deckActions'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { motion, AnimateSharedLayout } from "framer-motion";
+import DeckOptions from "./DeckOptions";
+import NewDeckForm from "./NewDeckForm";
+import { getDecks } from "../actions/deckActions";
+import { useSelector, useDispatch } from "react-redux";
+import { addDeck } from "../actions/deckActions";
 
-const Decks = () => {
-    const ref = useRef()
-    const decks = useSelector(state => state.deckReducer.decks)
-    const dispatch = useDispatch()
-    const [selectedId, setSelectedId] = useState(null)
+const Decks = ({ currentUser }) => {
+  const decks = useSelector((state) => state.deckReducer.decks);
+  const dispatch = useDispatch();
+  const [form, toggleForm] = useState(false);
 
-    const handleClick = (id) => {
-        selectedId === id ? setSelectedId(null) : setSelectedId(id)
-    }
+  const handleNewDeck = (name) => {
+    dispatch(addDeck(name));
+    toggleForm(!form);
+  };
 
-    useEffect(() => {
-        dispatch(getDecks())
+  useEffect(() => {
+    dispatch(getDecks());
+  }, [dispatch]);
 
-        const handleOutsideClick = (e) => {
-            if (ref.current.contains(e.target)) {
-                return 
-            }
-            setSelectedId(null)
-        }
+  return (
+    <AnimateSharedLayout>
+      <motion.div className="decks-container" layout>
+        <motion.div className="decks-header" layout>
+          <motion.h2 className="decks-header-text" layout>
+            Decks
+          </motion.h2>
+          <motion.button
+            className="add-deck-bttn"
+            onClick={() => toggleForm(!form)}
+            whileHover={{ background: "white", color: "black" }}
+            whileTap={{ borderRadius: "50%" }}
+          >
+            +
+          </motion.button>
+        </motion.div>
+        {!form && decks.length === 0 && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "80%",
+              background: "transparent",
+              color: "var(--lightblue)",
+              fontSize: "40px",
+            }}
+          >
+            <span>No Decks Yet</span>
+          </div>
+        )}
+        {form && <NewDeckForm handleNewDeck={handleNewDeck} />}
+        {!form && decks.length > 0 && <DeckOptions decks={decks} />}
+      </motion.div>
+    </AnimateSharedLayout>
+  );
+};
 
-        document.addEventListener('mousedown', handleOutsideClick)
-
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick)
-        }
-    }, [dispatch])
-
-    return (
-        <div className='decks-container'>
-            <h2 className='decks-header'>Decks</h2>
-            <div ref={ref} className='deck-options-container'>
-                <AnimateSharedLayout type='crossfade'>
-                    {decks.map(deck => (
-                        <motion.div 
-                            className='deck-option-container' 
-                            key={deck.id} 
-                            onClick={() => handleClick(deck.id)}
-                        >
-                            <DeckOption deck={deck} selected={selectedId === deck.id} setSelectedId={setSelectedId} />
-                        </motion.div>
-                    ))}
-                </AnimateSharedLayout>
-            </div>
-        </div>
-    )
-}
-  
-export default Decks
+export default Decks;
