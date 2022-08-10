@@ -13,6 +13,8 @@ const initialState = {
   started: false,
   finished: false,
   showHintModal: false,
+  numberAnswered: 0,
+  numberCorrect: 0,
 };
 
 export const sessionReducer = (state = initialState, action) => {
@@ -38,6 +40,8 @@ export const sessionReducer = (state = initialState, action) => {
       return {
         ...state,
         cards: newCards,
+        numberAnswered: newCards.filter((c) => c.answered).length,
+        numberCorrect: newCards.filter((c) => c.correct).length,
       };
     case "SHOW_HINT_MODAL":
       return {
