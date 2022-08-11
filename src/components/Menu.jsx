@@ -1,72 +1,53 @@
-import { React, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouseUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-
+import { motion } from "framer-motion";
+import { Link, Redirect } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouseUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 const menuVariants = {
-    hidden: {
-        opacity: 0,
+  hidden: {
+    opacity: 0,
+    y: "200px",
+  },
+  visible: {
+    opacity: [0, 0, 0.5, 1],
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 175,
+      damping: 25,
     },
-    visible: {
-        opacity: 0,
-        x: '200px',
-        transition: {
-            type: 'spring',
-            stiffness: 175,
-            damping: 25,
-        }
-    },
-    open: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            type: 'spring',
-            stiffness: 175,
-            damping: 25,
-        }
-    }
-}
+  },
+};
 
 const Menu = ({ logoutUser, open, setOpen }) => {
-    const ref = useRef()
+  const handleLogout = () => {
+    logoutUser();
+  };
 
-    const handleClick = (e) => {
-        if (ref.current.contains(e.target)) {
-            return 
-        }
-        setOpen()
-    }
+  return (
+    <motion.div
+      className="menu"
+      variants={menuVariants}
+      initial="hidden"
+      animate={open ? "visible" : "hidden"}
+      layout
+    >
+      <button className="fontawesome-home" onClick={() => setOpen(!open)}>
+        <Link to="/" style={{ marginRight: "2rem", color: "white" }}>
+          <FontAwesomeIcon
+            icon={faHouseUser}
+            style={{ marginRight: ".5rem", color: "white" }}
+          />
+          <span>Home</span>
+        </Link>
+      </button>
 
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClick)
+      <button className="fontawesome-logout" onClick={handleLogout}>
+        <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: ".5rem" }} />
+        <span>Logout</span>
+      </button>
+    </motion.div>
+  );
+};
 
-        return () => {
-            document.removeEventListener('mousedown', handleClick)
-        }
-    }, [])
-
-    return (
-        <motion.div ref={ref} className='menu-container' layout>
-            <motion.div
-                className='menu'
-                variants={menuVariants}
-                initial='hidden'
-                animate={open ? 'open' : 'visible'}
-                layout
-            >   
-                <Link to='/' className='fontawesome-home'>
-                    <FontAwesomeIcon icon={faHouseUser} />
-                    <span style={{padding: '1rem'}}>Home</span>
-                </Link>
-                <div style={{marginTop: '2rem'}} className='fontawesome-logout' onClick={logoutUser}>
-                    <FontAwesomeIcon icon={faSignOutAlt} />
-                    <span style={{padding: '1rem'}}>Logout</span>
-                </div>
-            </motion.div>
-        </motion.div>
-    )
-}
-
-export default Menu
+export default Menu;
