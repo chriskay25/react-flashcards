@@ -6,13 +6,15 @@ import Decks from "./components/Decks";
 import LandingPage from "./components/LandingPage";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
+import Modal from "./components/Modal";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "./actions/userActions";
-// import { AnimatePresence } from 'framer-motion'
 
 const App = () => {
   const currentUser = useSelector((state) => state.userReducer.currentUser);
+  const hintModal = useSelector((state) => state.sessionReducer.showHintModal);
+  const hintContent = useSelector((state) => state.sessionReducer.hintContent);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -22,6 +24,7 @@ const App = () => {
 
   return (
     <div className="App">
+      {hintModal && <Modal content={hintContent} />}
       <NavBar />
       <Switch location={location} key={location.pathname}>
         <Route exact path="/decks/:id">
