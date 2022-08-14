@@ -9,35 +9,7 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
-const cardVariants = {
-  enterRight: {
-    opacity: 0,
-    x: "60vw",
-    scale: 0.4,
-  },
-  enterLeft: {
-    opacity: 0,
-    x: "-60vw",
-    scale: 0.4,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-  },
-  exitRight: {
-    x: "60vw",
-    opacity: 0.2,
-    scale: 0,
-  },
-  exitLeft: {
-    x: "-60vw",
-    opacity: 0.2,
-    scale: 0,
-  },
-};
-
-const Card = ({ card, index, mode, direction }) => {
+const Card = ({ card, index, mode, deckLength }) => {
   const dispatch = useDispatch();
 
   const handleHint = () => {
@@ -47,15 +19,7 @@ const Card = ({ card, index, mode, direction }) => {
 
   return (
     <motion.div className="card" style={{ overflow: "hidden" }}>
-      <motion.div
-        className="inner-card"
-        key={index}
-        variants={cardVariants}
-        initial={direction === "forward" ? "enterRight" : "enterLeft"}
-        animate="visible"
-        transition={{ type: "spring", stiffness: 175, damping: 25 }}
-        exit={direction === "forward" ? "exitLeft" : "exitRight"}
-      >
+      <div className="inner-card" key={index}>
         <span className="question-number">{index + 1}.</span>
         <Question question={card.question} />
         <Answer
@@ -70,9 +34,9 @@ const Card = ({ card, index, mode, direction }) => {
           icon={faLightbulb}
           size="2x"
         />
-        <CardStats />
+        <CardStats deckLength={deckLength} />
         {card.answered && <Checkmark correct={card.correct} />}
-      </motion.div>
+      </div>
     </motion.div>
   );
 };
