@@ -1,74 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import CardContainer from '../containers/CardContainer'
-import ModeSelect from '../components/ModeSelect'
-import CardNav from '../components/CardNav'
-import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { getDeck } from '../actions/deckActions'
-import { startSession } from '../actions/sessionActions'
+import React, { useState } from "react";
+import DeckTitle from "./DeckTitle";
+import QuizSession from "./QuizSession";
+import StudySession from "./StudySession";
+import { useSelector } from "react-redux";
 
 const Deck = () => {
-  const [mode, setMode] = useState(null)
-  const [index, setIndex] = useState(0)
-  const [direction, setDirection] = useState('forward')
-  const deck = useSelector(state => state.deckReducer.deck)
-  const session = useSelector(state => state.sessionReducer)
-  const params = useParams()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getDeck(params.id))
-  }, [dispatch, params.id])
-
-  const handleModeSelect = (mode) => {
-    setMode(mode)
-    dispatch(startSession(deck))
-  }
+  const [index, setIndex] = useState(0);
+  const session = useSelector((state) => state.sessionReducer);
 
   const next = () => {
     if (index < session.cards.length - 1) {
-      setIndex(index + 1) 
+      setIndex(index + 1);
     }
-  }
+  };
 
   const back = () => {
     if (index > 0) {
-      setIndex(index - 1) 
+      setIndex(index - 1);
     }
-  }
+  };
 
   const goTo = (x) => {
-    if (x > 0 && x < session.cards.length - 1) setIndex(x - 1)
-  }
+    if (x > 0 && x < session.cards.length + 1) setIndex(x - 1);
+  };
 
   return (
-    <div className="deck-display">
-      {deck && <div className='deck-title'>
-        <h1>{deck.name}</h1>
-        <p style={{fontFamily: 'Montserrat', paddingLeft: '8px', color: 'lightsalmon'}}>({deck.cards.length} Cards)</p>
-      </div>}
-
-      {!mode && <ModeSelect handleModeSelect={handleModeSelect} />}
-
-      {mode && <CardContainer 
-        card={session.cards[index]} 
-        index={index}
-        mode={mode} 
-        cardCount={session.cards.length} 
-        direction={direction}
-      />}
-
-      {mode && <CardNav 
-            back={back} 
-            next={next} 
-            cardCount={session.cards.length} 
-            goTo={goTo} 
-            index={index} 
-            id={session.cards[index].id}
-            setDirection={setDirection}
-        />}
+    <div
+      style={{
+        height: "calc(100% - 50px)",
+        width: "100%",
+        overflowY: "auto",
+        marginTop: "50px",
+        position: "relative",
+      }}
+    >
+      <div className="deck-display">
+        <DeckTitle session={session} />
+        {session.cards.length === 0 && (
+          <div
+            style={{
+              width: "100%",
+              height: "150px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "2.5rem",
+            }}
+          >
+            <span style={{ color: "white" }}>Deck is empty</span>
+          </div>
+        )}
+        {session.cards.length > 0 && session.mode === "quiz" && (
+          <QuizSession
+            session={session}
+            index={index}
+            back={back}
+            next={next}
+            goTo={goTo}
+          />
+        )}
+        {session.mode === "study" && <StudySession cards={session.cards} />}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Deck
+export default Deck;
