@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import DeckTitle from "./DeckTitle";
-import QuizSession from "./QuizSession";
-import StudySession from "./StudySession";
+import QuizMode from "./QuizMode";
+import StudyMode from "./StudyMode";
+import EditDeck from "./EditDeck";
 import { useSelector } from "react-redux";
 
 const Deck = () => {
@@ -52,7 +53,7 @@ const Deck = () => {
           </div>
         )}
         {session.cards.length > 0 && session.mode === "quiz" && (
-          <QuizSession
+          <QuizMode
             session={session}
             index={index}
             back={back}
@@ -60,7 +61,8 @@ const Deck = () => {
             goTo={goTo}
           />
         )}
-        {session.mode === "study" && <StudySession cards={session.cards} />}
+        {session.mode === "study" && <StudyMode cards={session.cards} />}
+        {session.mode === "edit" && <EditDeck cards={session.cards} />}
       </div>
     </div>
   );
