@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-const CardStats = () => {
+const CardStats = ({ deckLength }) => {
   const numberAnswered = useSelector(
     (state) => state.sessionReducer.numberAnswered
   );
@@ -14,11 +14,34 @@ const CardStats = () => {
         position: "absolute",
         left: "1rem",
         bottom: "1rem",
-        fontSize: "1rem",
+        fontSize: "1.4rem",
+        color: "var(--dark)",
+        fontWeight: "600",
       }}
     >
-      <span style={{ marginRight: "5px" }}>Answered: {numberAnswered}</span>
-      <span>Correct: {numberCorrect}</span>
+      <span style={{ marginRight: "8px" }}>
+        Answered:{" "}
+        <span
+          style={{
+            fontFamily: "Bungee",
+          }}
+        >
+          {numberAnswered}{" "}
+          <span style={{ color: "var(--dark)" }}>/ {deckLength}</span>
+        </span>
+      </span>
+      <br />
+      <span style={{}}>
+        Correct:{" "}
+        <span
+          style={{
+            color: "var(--blue)",
+            fontFamily: "Bungee",
+          }}
+        >
+          {numberCorrect}
+        </span>
+      </span>
     </div>
   );
 };
