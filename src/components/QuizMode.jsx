@@ -1,7 +1,7 @@
 import CardContainer from "../containers/CardContainer";
 import CardNav from "./CardNav";
 
-const QuizSession = ({ session, index, back, next, goTo }) => {
+const QuizMode = ({ session, index, back, next, goTo }) => {
   return (
     <>
       <CardContainer
@@ -23,4 +23,4 @@ const QuizSession = ({ session, index, back, next, goTo }) => {
   );
 };
 
-export default QuizSession;
+export default QuizMode;
