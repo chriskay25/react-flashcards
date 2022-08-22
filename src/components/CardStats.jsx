@@ -2,11 +2,9 @@ import { useSelector } from "react-redux";
 
 const CardStats = ({ deckLength }) => {
   const numberAnswered = useSelector(
-    (state) => state.sessionReducer.numberAnswered
+    (state) => state.quizReducer.numberAnswered
   );
-  const numberCorrect = useSelector(
-    (state) => state.sessionReducer.numberCorrect
-  );
+  const numberCorrect = useSelector((state) => state.quizReducer.numberCorrect);
 
   return (
     <div

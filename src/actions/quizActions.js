@@ -1,13 +1,5 @@
-export const modeSelect = (mode) => {
-  return (dispatch) => {
-    dispatch({
-      type: "MODE",
-      payload: mode,
-    });
-  };
-};
-
-export const startSession = (deck) => {
+export const startQuiz = (deck) => {
+  debugger;
   return (dispatch) => {
     let cards = deck.cards.map((card) => {
       return Object.assign({}, card, {

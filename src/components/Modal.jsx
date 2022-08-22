@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { triggerHintModal } from "../actions/sessionActions";
+import { triggerHintModal } from "../actions/quizActions";
 import { motion } from "framer-motion";
 
 const Modal = ({ content }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { questionAnswered } from "../actions/sessionActions";
+import { questionAnswered } from "../actions/quizActions";
 import { motion } from "framer-motion";
 import { TextareaAutosize } from "@material-ui/core";
 

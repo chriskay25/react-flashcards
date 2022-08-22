@@ -17,13 +17,8 @@ const initialState = {
   numberCorrect: 0,
 };
 
-export const sessionReducer = (state = initialState, action) => {
+export const quizReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "MODE":
-      return {
-        ...state,
-        mode: action.payload,
-      };
     case "START":
       return {
         ...state,

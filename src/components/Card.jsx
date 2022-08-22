@@ -4,7 +4,7 @@ import Question from "./Question";
 import Answer from "./Answer";
 import Checkmark from "./Checkmark";
 import CardStats from "./CardStats";
-import { triggerHintModal } from "../actions/sessionActions";
+import { triggerHintModal } from "../actions/quizActions";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
