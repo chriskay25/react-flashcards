@@ -1,16 +1,17 @@
-import { useDispatch } from "react-redux";
-import { modeSelect } from "../actions/sessionActions";
+import { useDispatch, useSelector } from "react-redux";
+import { setMode } from "../actions/deckActions";
 
-const DeckTitle = ({ session }) => {
+const DeckHeader = ({ mode }) => {
   const dispatch = useDispatch();
+  const deck = useSelector((state) => state.deckReducer.deck);
   const handleModeChange = (newMode) => {
-    dispatch(modeSelect(newMode));
+    dispatch(setMode(newMode));
   };
 
   return (
-    <div className="deck-title">
+    <header className="deck-header">
       <div style={{ display: "flex", alignItems: "baseline" }}>
-        <h1>{session.deck.name}</h1>
+        <h1>{deck.name}</h1>
         <p
           style={{
             fontFamily: "Montserrat",
@@ -18,11 +19,11 @@ const DeckTitle = ({ session }) => {
             color: "lightsalmon",
           }}
         >
-          ({session.cards.length} Cards)
+          ({deck.cards.length} Cards)
         </p>
       </div>
       <div style={{}}>
-        {session.mode !== "quiz" && (
+        {mode !== "quiz" && (
           <button
             onClick={() => handleModeChange("quiz")}
             className="deck-title-button"
@@ -30,7 +31,7 @@ const DeckTitle = ({ session }) => {
             Quiz
           </button>
         )}
-        {session.mode !== "study" && (
+        {mode !== "study" && (
           <button
             onClick={() => handleModeChange("study")}
             className="deck-title-button"
@@ -38,7 +39,7 @@ const DeckTitle = ({ session }) => {
             Study
           </button>
         )}
-        {session.mode !== "edit" && (
+        {mode !== "edit" && (
           <button
             onClick={() => handleModeChange("edit")}
             className="deck-title-button"
@@ -47,8 +48,8 @@ const DeckTitle = ({ session }) => {
           </button>
         )}
       </div>
-    </div>
+    </header>
   );
 };
 
-export default DeckTitle;
+export default DeckHeader;
