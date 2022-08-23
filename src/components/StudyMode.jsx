@@ -1,10 +1,31 @@
 import StudyCard from "./StudyCard";
+import { motion } from "framer-motion";
 
-const StudyMode = ({ cards }) => {
+const listVariants = {
+  initial: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const StudyMode = ({ deck }) => {
   const view = () => {
-    return cards.map((card) => <StudyCard key={card.id} card={card} />);
+    return deck.cards.map((card) => <StudyCard key={card.id} card={card} />);
   };
-  return <ul className="card-list study">{view()}</ul>;
+  return (
+    <motion.ul
+      className="card-list study"
+      initial="initial"
+      animate="visible"
+      variants={listVariants}
+      layout
+    >
+      {view()}
+    </motion.ul>
+  );
 };
 
 export default StudyMode;
