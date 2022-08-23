@@ -1,24 +1,55 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CardContainer from "../containers/CardContainer";
 import CardNav from "./CardNav";
+import { startQuiz } from "../actions/quizActions";
 
-const QuizMode = ({ session, index, back, next, goTo }) => {
+const QuizMode = ({ deck }) => {
+  const [index, setIndex] = useState(0);
+  const dispatch = useDispatch();
+  const quiz = useSelector((state) => state.quizReducer);
+
+  useEffect(() => {
+    dispatch(startQuiz(deck));
+  }, [deck, dispatch]);
+
+  const next = () => {
+    if (index < deck.cards.length - 1) {
+      setIndex(index + 1);
+    }
+  };
+
+  const back = () => {
+    if (index > 0) {
+      setIndex(index - 1);
+    }
+  };
+
+  const goTo = (x) => {
+    if (x > 0 && x < deck.cards.length + 1) setIndex(x - 1);
+  };
+
   return (
     <>
-      <CardContainer
-        card={session.cards[index]}
-        index={index}
-        mode={session.mode}
-        deckLength={session.cards.length}
-      />
+      {quiz.cards && (
+        <>
+          <CardContainer
+            card={quiz.cards[index]}
+            index={index}
+            mode={"quiz"}
+            deckLength={deck.cards.length}
+          />
 
-      <CardNav
-        back={back}
-        next={next}
-        cardCount={session.cards.length}
-        goTo={goTo}
-        index={index}
-        id={session.cards.length > 0 ? session.cards[index].id : 0}
-      />
+          <CardNav
+            back={back}
+            next={next}
+            cardCount={deck.cards.length}
+            goTo={goTo}
+            index={index}
+            id={deck.cards.length > 0 ? deck.cards[index].id : 0}
+          />
+        </>
+      )}
     </>
   );
 };

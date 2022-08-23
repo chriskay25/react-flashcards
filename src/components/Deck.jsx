@@ -1,29 +1,12 @@
-import React, { useState } from "react";
-import DeckTitle from "./DeckTitle";
+import DeckHeader from "./DeckHeader";
 import QuizMode from "./QuizMode";
 import StudyMode from "./StudyMode";
 import EditDeck from "./EditDeck";
 import { useSelector } from "react-redux";
 
 const Deck = () => {
-  const [index, setIndex] = useState(0);
-  const session = useSelector((state) => state.sessionReducer);
-
-  const next = () => {
-    if (index < session.cards.length - 1) {
-      setIndex(index + 1);
-    }
-  };
-
-  const back = () => {
-    if (index > 0) {
-      setIndex(index - 1);
-    }
-  };
-
-  const goTo = (x) => {
-    if (x > 0 && x < session.cards.length + 1) setIndex(x - 1);
-  };
+  const deck = useSelector((state) => state.deckReducer.deck);
+  const mode = useSelector((state) => state.deckReducer.mode);
 
   return (
     <div
@@ -35,35 +18,29 @@ const Deck = () => {
         position: "relative",
       }}
     >
-      <div className="deck-display">
-        <DeckTitle session={session} />
-        {session.cards.length === 0 && (
-          <div
-            style={{
-              width: "100%",
-              height: "150px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "2.5rem",
-            }}
-          >
-            <span style={{ color: "white" }}>Deck is empty</span>
-          </div>
-        )}
-        {session.cards.length > 0 && session.mode === "quiz" && (
-          <QuizMode
-            session={session}
-            index={index}
-            back={back}
-            next={next}
-            goTo={goTo}
-          />
-        )}
-        {session.mode === "study" && <StudyMode cards={session.cards} />}
-        {session.mode === "edit" && <EditDeck cards={session.cards} />}
-      </div>
+      {deck && (
+        <div className="deck-display">
+          <DeckHeader deck={deck} mode={mode} />
+          {deck.cards.length === 0 && (
+            <div
+              style={{
+                width: "100%",
+                height: "150px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "2.5rem",
+              }}
+            >
+              <span style={{ color: "white" }}>Deck is empty</span>
+            </div>
+          )}
+          {deck.cards.length > 0 && mode === "quiz" && <QuizMode deck={deck} />}
+          {mode === "study" && <StudyMode deck={deck} />}
+          {mode === "edit" && <EditDeck deck={deck} />}
+        </div>
+      )}
     </div>
   );
 };
