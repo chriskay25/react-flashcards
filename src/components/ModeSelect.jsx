@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { modeSelect, startSession } from "../actions/sessionActions";
+import { getDeck, setMode } from "../actions/deckActions";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -13,8 +13,8 @@ const ModeSelect = ({ deck }) => {
   const dispatch = useDispatch();
 
   const handleModeSelect = () => {
-    dispatch(modeSelect(selected));
-    dispatch(startSession(deck));
+    dispatch(getDeck(deck.id));
+    dispatch(setMode(selected));
     setRedirected(true);
   };
 
