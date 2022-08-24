@@ -37,23 +37,20 @@ const Answer = ({ answer, mode, answered, id }) => {
       animate="visible"
       layout
     >
-      {mode === "quiz" && (
-        <>
-          <TextareaAutosize
-            value={userAnswer}
-            onChange={handleAnswerChange}
-            placeholder="Answer"
-          ></TextareaAutosize>
-          <button
-            className="answer-submit"
-            onClick={handleAnswerSubmit}
-            disabled={answered}
-          >
-            Submit
-          </button>
-        </>
-      )}
-      {mode === "study" && <div>{answer}</div>}
+      <>
+        <TextareaAutosize
+          value={userAnswer}
+          onChange={handleAnswerChange}
+          placeholder="Answer"
+        ></TextareaAutosize>
+        <button
+          className="answer-submit"
+          onClick={handleAnswerSubmit}
+          disabled={answered}
+        >
+          Submit
+        </button>
+      </>
     </motion.div>
   );
 };
