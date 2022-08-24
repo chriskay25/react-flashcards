@@ -11,7 +11,9 @@ const QuizMode = ({ deck }) => {
 
   useEffect(() => {
     dispatch(startQuiz(deck));
-  }, [deck, dispatch]);
+
+    return () => dispatch({ type: "CLEAR_QUIZ" });
+  }, [dispatch]);
 
   const next = () => {
     if (index < deck.cards.length - 1) {

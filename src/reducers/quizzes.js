@@ -44,6 +44,15 @@ export const quizReducer = (state = initialState, action) => {
         showHintModal: action.payload.open,
         hintContent: action.payload.content,
       };
+    case "CLEAR_QUIZ":
+      return {
+        ...state,
+        started: false,
+        finished: false,
+        showHintModal: false,
+        numberAnswered: 0,
+        numberCorrect: 0,
+      };
     default:
       return state;
   }
