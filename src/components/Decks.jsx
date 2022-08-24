@@ -6,7 +6,7 @@ import { getDecks } from "../actions/deckActions";
 import { useSelector, useDispatch } from "react-redux";
 import { addDeck } from "../actions/deckActions";
 
-const Decks = ({ currentUser }) => {
+const Decks = () => {
   const decks = useSelector((state) => state.deckReducer.decks);
   const dispatch = useDispatch();
   const [form, toggleForm] = useState(false);
@@ -23,19 +23,34 @@ const Decks = ({ currentUser }) => {
   return (
     <AnimateSharedLayout>
       <motion.div className="decks-container" layout>
-        <motion.div className="decks-header" layout>
+        <motion.header className="decks-header" layout>
           <motion.h2 className="decks-header-text" layout>
-            Decks
+            DECKS
           </motion.h2>
           <motion.button
             className="add-deck-bttn"
+            style={{
+              borderRadius: form ? "50%" : "1rem",
+            }}
             onClick={() => toggleForm(!form)}
-            whileHover={{ background: "white", color: "black" }}
-            whileTap={{ borderRadius: "50%" }}
           >
-            +
+            <svg
+              viewBox="0 0 20 20"
+              height="20px"
+              width="20px"
+              style={{
+                transform: form ? "rotate(0deg)" : "rotate(45deg)",
+                transition: ".2s ease-in-out",
+              }}
+            >
+              <path
+                d="m 0 0, 20 20, m 0 -20, -20 20"
+                stroke="var(--light)"
+                strokeWidth="3px"
+              />
+            </svg>
           </motion.button>
-        </motion.div>
+        </motion.header>
         {!form && decks.length === 0 && (
           <div
             style={{
