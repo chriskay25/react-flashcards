@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
-const Card = ({ card, index, mode, deckLength }) => {
+const Card = ({ card, index, deckLength }) => {
   const dispatch = useDispatch();
 
   const handleHint = () => {
@@ -22,12 +22,7 @@ const Card = ({ card, index, mode, deckLength }) => {
       <div className="inner-card" key={index}>
         <span className="question-number">{index + 1}.</span>
         <Question question={card.question} />
-        <Answer
-          answer={card.answer}
-          answered={card.answered}
-          mode={mode}
-          id={card.id}
-        />
+        <Answer card={card} />
         <FontAwesomeIcon
           onClick={handleHint}
           className="fontawesome-lightbulb"
