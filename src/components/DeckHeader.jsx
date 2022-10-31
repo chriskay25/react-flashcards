@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setMode } from "../actions/deckActions";
 
-const DeckHeader = ({ mode }) => {
+const DeckHeader = ({ name, cardCount, mode }) => {
   const dispatch = useDispatch();
-  const deck = useSelector((state) => state.deckReducer.deck);
   const handleModeChange = (newMode) => {
     dispatch(setMode(newMode));
   };
@@ -11,15 +10,15 @@ const DeckHeader = ({ mode }) => {
   return (
     <header className="deck-header">
       <div style={{ display: "flex", alignItems: "baseline" }}>
-        <h1>{deck.name}</h1>
+        <h1>{name}</h1>
         <p
           style={{
-            fontFamily: "Montserrat",
+            fontFamily: "var(--primary-font)",
             paddingLeft: "8px",
             color: "lightsalmon",
           }}
         >
-          ({deck.cards.length} Cards)
+          ({cardCount} Cards)
         </p>
       </div>
       <div style={{}}>

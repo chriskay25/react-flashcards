@@ -6,12 +6,13 @@ import { useSelector } from "react-redux";
 
 const Deck = () => {
   const deck = useSelector((state) => state.deckReducer.deck);
+  const cards = useSelector((state) => state.cardReducer.cards);
   const mode = useSelector((state) => state.deckReducer.mode);
 
   return (
     <div
       style={{
-        height: "calc(100% - 50px)",
+        height: "calc(100% - 60px)",
         width: "100%",
         overflowY: "auto",
         marginTop: "50px",
@@ -20,8 +21,8 @@ const Deck = () => {
     >
       {deck && (
         <div className="deck-display">
-          <DeckHeader deck={deck} mode={mode} />
-          {deck.cards.length === 0 && (
+          <DeckHeader name={deck.name} mode={mode} cardCount={cards.length} />
+          {cards.length === 0 && (
             <div
               style={{
                 width: "100%",
@@ -36,9 +37,9 @@ const Deck = () => {
               <span style={{ color: "white" }}>Deck is empty</span>
             </div>
           )}
-          {deck.cards.length > 0 && mode === "quiz" && <QuizMode deck={deck} />}
-          {mode === "study" && <StudyMode deck={deck} />}
-          {mode === "edit" && <EditDeck deck={deck} />}
+          {mode === "quiz" && <QuizMode cards={cards} />}
+          {mode === "study" && <StudyMode cards={cards} />}
+          {mode === "edit" && <EditDeck cards={cards} />}
         </div>
       )}
     </div>
